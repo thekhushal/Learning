@@ -1,0 +1,103 @@
+0--Basics
+        1--MyFirstProgram.py  
+        2--Variable.py        
+        3--DataType.py        
+        4--Operators.py       
+        4.1--mult.py
+        4.2--sum.py
+        homework 1
+        MinFunc.py
+        Swap_Var_Val.py       
+1--If_Else
+        EvenOdd.py
+        Grader.py
+        IF_Else_Conditional.py
+        PassOR_Fail_1.0.py    
+        PassOR_Fail_2.0.py    
+        SelfOractise2.0.py    
+        SelfPractice.py       
+2--While
+        1--Counting.py
+        2--PythonTables.py
+        3.1--BasicCalculator.py             Done
+        3.2--Calculator.py 
+        3.3--SumOfNumbersInInterval.py    
+        4--HalfDiamond.py                   Done
+        5--Diamond.py                       Done
+        6--Fibonachi_Python.py              Done
+        7--Factorial.py                     Done
+        8--PrimeNo._.py                     Done
+        9--StringIteration.py               Done
+        10.1CalcualateSpace.py              Done
+        10.2CalcuateNumers.py               Done
+        10.3CalculatAlpha.py                Done
+        10.4CalculateVovels.py              Done
+        11--StringCalculator.py             Done
+        12.1--LADAL.py
+        12.2--StringReverser.py
+        InputStrings.py
+        InputList.py
+        
+3--For
+        Counting.py    
+        Tables.py
+        SumOfNumbersInInterval.py
+
+        HalfDiamond.py
+        Diamond.py
+
+        PrimeNo.py
+        Factorial.py
+        Fibonachi.py
+
+        StringIteration.py
+        CalculateAlpha.py
+        StringCalculator.py
+        IterateList.py
+4--Function
+        Calculator.py
+        Fact.py
+        Fibbi.py
+        FormatFunction.py
+        func.py
+        MaxNo.py
+        Sort a List.txt
+        StringCalculator.py
+5--Problems
+        ArmStrongNo.py
+        AssendingDessending.py       
+        BubbleSort.py
+        CheckByItself.py
+        Conditional.py
+        PerfectNo.py
+        Swap_Var_Val.py
+        TheReaJob.py
+6--List_DIR
+        DIR.Explainatory.py
+        DIR.py
+        DIR1.0.py
+        LIstofFIles.py
+        try.py
+7--File
+        Misc.py
+        Myfile.txt
+        OpenFile.py
+        Practice.py
+        ReadFile.py
+        testfile.txt
+8--Error
+        Error.py
+9--Modules
+        MyFirstModule.py
+        MySecondModule.py
+DateTIme.py
+list.py
+Practice
+        Practice01.py
+        practice02.py
+        Practice03.py
+        Practice04.py
+        Practice05.py
+RoughPractice.py
+Slice&StringMethods.py
+Swap.py
