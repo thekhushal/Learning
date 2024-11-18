@@ -1,0 +1,5 @@
+print("Hello friends, how y'all doing? I'm doing something new and wanted to share with you.\nI have started learning something new, guess what?")
+print("\t\"Swimming?\", ah, no...")
+print("\t\"Gymnastics?\", no, no")
+print("\t\"Yoga?\", nope")
+print("\t\"Then what?\"")

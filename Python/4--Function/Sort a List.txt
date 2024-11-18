@@ -1,0 +1,8 @@
+Sort a List
+Input a no. and tell if it is perfect
+    A positive integer that is = to the sum of its proper divsor
+    eg : 6 because its proper divisor are 123 and their sum is 6 too
+Input a no. and tell if it is Arm Strong
+    If the sum of its own digits raised to the power number of digits gives the number itself
+    eg : 153 = ((1^3) + (5^3) + (3^3))
+    eg : 1634 = ((1^4) + (6^4) + (3^4) + (4^4))

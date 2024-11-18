@@ -1,0 +1,5 @@
+1. How to give multiline comment with the use of #
+2. How to end a code if a condition happen(true/false)
+    Eg: i needed to end the program if (variable) is equal to "0" in .\ReWise\2.6--Factorial.py
+3. If i want to check that if a variable exist or not what shall i Do
+    Eg: There's a situation that a new vairiable is created if a certain condition is fulfiled else its not created, i want to check if the variable was created or not
