@@ -14,4 +14,14 @@ a = {
 }
 
 df = pd.DataFrame(a)
-print(df)
+# print(df)
+
+# How to check top 5 data in data frame
+# print(df.head(4))
+
+# To check last data
+
+# Overall Info
+# print(df.info)
+
+
