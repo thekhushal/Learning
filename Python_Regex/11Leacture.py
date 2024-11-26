@@ -23,7 +23,7 @@
 
 
 # sorting
-# a = [400, 32, 12, 40, 50, 23, 54, 256, 23, 67
+# a = [400, 32, 12, 40, 50, 23, 54, 256, 23, 67]
 
 # for x in range(len(a)):
 #     min = a[x]
@@ -65,3 +65,10 @@
 #         sh = a[x]
 # print(sh)
 
+# Print Duplicate elements from list
+a = [10, 20, 30, 20, 10, 20]
+
+for x in range(len(a)):
+    for y in range(x+1, len(a)):
+        if a[x] == a[y]:
+            print(a[x])
