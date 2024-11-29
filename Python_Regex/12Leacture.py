@@ -40,6 +40,6 @@
 
 
 # valid anagram
-mydictionary = {}
+# mydictionary = {}
 
-name = "khushal"
+# name = "khushal"
