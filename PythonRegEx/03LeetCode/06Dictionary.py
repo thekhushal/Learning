@@ -38,8 +38,3 @@
 # print(mydictionary)
 
 
-
-# valid anagram
-# mydictionary = {}
-
-# name = "khushal"
