@@ -39,3 +39,4 @@ select p.pid, p.name, p.price, o.city
 from product as p natural join orders as o
 
 -- Practice these questions on hacker rank or SQLZoo
+-- How can we improve performance of Join
