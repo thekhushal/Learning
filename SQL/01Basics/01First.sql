@@ -1,8 +1,15 @@
 show databases;
 -- The command above is used to list all the databases we have
 
+select database();
+-- Shows / displays database we are working on 
+-- not used that much
+
 use sakila;
 -- This command is used to start using a particular database
+
+select database();
+-- Shows / displays database we are working on 
 
 show tables;
 -- This command lists all the tables in the database we are using
@@ -32,9 +39,3 @@ select actor_id, first_name, actor_id*100 from actor;
 -- also the name of the felid was displayed as it was in the query
 
 -- this does not change anything in the actual database, database remanis the same, change is only applied here.
-
-
-
-
-
-

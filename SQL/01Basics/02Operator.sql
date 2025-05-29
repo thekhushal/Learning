@@ -1,5 +1,5 @@
 -- operators
-	-- Aerthamatic Operator
+	-- Arithmetic Operator
 		-- (+, -, *, /, %)
         
 	-- Comparision Operator
@@ -11,12 +11,12 @@
 		-- AND, OR, NOT
 	
     -- Assignment Operator
-		-- '='
-	-- String Operator
-		-- (`, LIKE, ILIKE)
-	
-    -- Other Special Operator
-		-- (BETWEEN, IN, NOT IN, IS NULL, IS NOT NULL, EXISTS)
-	
+		-- equal to '='
+        -- unlike python where'==' is used in sql '=' is used as assignment operator
+        
     -- Bit Wise Operator
-
+		-- (&, `, ^, ~, <<, >>)
+        
+	-- Special Operator
+		-- (BETWEEN, LIKE, NOT LIKE, IN, NOT IN, IS NULL, IS NOT NULL, EXISTS)
+	

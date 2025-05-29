@@ -1,0 +1,19 @@
+-- ---------
+-- Functions
+	-- Block of code => code resuable
+	-- code redable
+	-- pre-defined function
+-- --------------------
+-- There are two category of functions
+	-- scalar func
+	-- multi line functions
+-- --------------------
+-- string function : Todays topic
+-- --------------------
+-- Types of function 
+	-- String function
+    -- Numeric Function
+    -- DateTime Func
+    -- Aggregate Func
+    -- Control Flow Func
+    -- JASON Func

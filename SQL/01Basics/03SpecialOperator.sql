@@ -1,16 +1,15 @@
-use sakila;
-
--- Where Clause
-select * from actor
-	where actor_id = 2;
--- This is where clause, it is used to apply conditions to filter data
-
+-- BETWEEN Operator
 select * from actor
 	where actor_id between 1 and 5;
+    -- between is similar to range operator or  < > 
 	-- When using between 1 and 5 is legal but 5 and 1 is not
+    -- output using Between will also have 1 and 5 included
+-- -------------------------------------------------
 
+-- IN Operator
 select * from actor
 	where actor_id in (2, 10, 50, 500);
+    -- IN can be used insted of or operator
     -- When using in only mentioned valuse will be given
     -- if a value out of scope is listed it will be ignored no error will be returned like 500 in thi scase
     
@@ -19,7 +18,8 @@ select actor_id, first_name from actor
     
 select actor_id, first_name from actor
 	where first_name = 'NICK' or first_name = 'ED';
-    
+-- -------------------------------------------------------
+
 -- LIKE Operator
 	-- WildCard Character
 		-- '%' => zero or more character
@@ -49,7 +49,16 @@ select * from actor
     
 select * from actor
 	where first_name like '_A';
+
+select * from actor 
+	where first_name like '__';
     
 select * from actor
 	where first_name like '_A%';
+    
+select * from actor 
+	where first_name like '_A%N';
+-- -----------------------------------------------------------
+
+    
     
