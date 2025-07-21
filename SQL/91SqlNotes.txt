@@ -1,0 +1,39 @@
+Data 
+    structured Data
+    semi structured Data
+    unstructured Data
+
+raw data vs data
+raw data: unprocessed and unfiltered data, where the info is hidden
+
+big data: when the data is really really big, in tera byts or penta byts we call it bid data
+-- to categorize a data set as big data it must satsfy the big 5v's
+v: volume
+v: velocity -- rate of generation of data
+v: variety
+v: varacity -- trust worthiness of the data
+v: values
+
+ER Diagram: Entiety Relationship Diagram
+
+    -- Every real world object is an Entiety
+
+    the name of a table is Entiety
+    all the columns are Attributes
+        -- Attributesare are used to describe the properties of an Entiety
+    all the rows or records are called tupples
+
+strong Entiety
+week Entiety
+
+
+types of Relationships between two Entiety
+-- one to one
+-- one to many
+-- many to one
+-- many to many
+
+
+
+NOTE: |STUDY| types of operators in SQL
+

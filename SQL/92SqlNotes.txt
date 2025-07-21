@@ -1,0 +1,33 @@
+            SQL
+1. Introduction
+    What is SQL
+    What is DBMS and SQL server
+    Why learn SQL
+    What is Databases & types
+    SQL commands
+    Setup your enviroment 
+
+Database - Stores data
+SQL - speaks to Database
+DBMS - Manages Database
+Server - where Databases live
+
+Types of Databases:
+    SQL Database:
+        Relational Database
+            Examples: MySQL, PostgreSQL, Microsoft SQL Server
+    No SQL Database:
+        1. Key-Value    |Examples|  Redis, Amazon SynamoDB
+        2. column-Based |Examples|  Apache Casscade, AMazon Redshift
+        3. Graph        |Examples|  Neo4j
+        4. Document     |Examples|  MongoDB
+
+Type of SQL languages
+1. DDL - Data Defination languages
+2. DML - Data Manipulation languages
+3. DQL - Data Query language
+4. DCL - Data control language
+5. TCL - Transaction control language
+commit structure
+
+
