@@ -19,6 +19,11 @@ select actor_id, first_name from actor
 select actor_id, first_name from actor
 	where first_name = 'NICK' or first_name = 'ED';
 -- -------------------------------------------------------
+-- NOT IN
+	select * from actor where actor_id not in (2,4,56,78)
+	-- here all record will be presented except (2,4,56,78)
+
+-- -------------------------------------------------------
 
 -- LIKE Operator
 	-- WildCard Character
@@ -26,6 +31,7 @@ select actor_id, first_name from actor
         -- '_' => only one character
 	-- Suppose you wish to find all names starting from 'E' you cannot so it with '=', we use like for it
 
+-- with %
 select * from actor
 	where first_name like 'E%';
     -- Here we got all first names starting with 'E'
@@ -43,7 +49,7 @@ select * from actor
 	where first_name like '%a%';
     
     
-
+-- with _
 select * from actor
 	where first_name like 'E_';
     

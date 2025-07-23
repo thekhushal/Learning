@@ -1,4 +1,3 @@
-
 use sakila;
 
 -- --------------------------
@@ -21,20 +20,20 @@ select length('漢'), char_length('漢') from dual;
 
 select first_name, last_name,
 concat(first_name, '-', last_name),
-		-- Here we are using 'concat' to combine all the parameters in it
-		-- here we use '-' as a seprator between two terms
+	-- Here we are using 'concat' to combine all the parameters in it
+	-- here we use '-' as a seprator between two terms
 concat_ws('-', first_name, last_name)
-		-- Concat_ws here the first parameter is the seprator, and this seprator will be automatically applied between all the parameters given to concat_ws
+	-- Concat_ws here the first parameter is the seprator, and this seprator will be automatically applied between all the parameters given to concat_ws
 from actor;
 
 -- -----------------------------------------------------
 -- SubStr
 
 -- Syntax of substr
-	-- substr(column_name, starting index, number of characters you want)
+	-- substr(column_name, starting position, number of characters you want)
 
--- NOTE -- Indexing for string starts from 1st index unlike 0th in python
--- NOTE -- In SQL you give starting index and total number of character, not start and ending index.
+-- NOTE -- Indexing/position starts from 1st index unlike 0th in python
+-- NOTE -- In SQL you give starting index/position and total number of character, not start and ending index.
 -- example
 select substr('CHETA-SINGH', 5, 3) from dual;
 	-- output - A-S as A is 5th char and we asked or 3 characters
@@ -62,7 +61,7 @@ from actor;
 -- it starts iterating from 1st index and returns the index of character when finds it
 -- even if the character is present multiple times in string, index of their first occurance is returned
 -- if the character is not present, zero is returned (remember theres no 0th index in sql)
-
+-- NOTE: Theres no 0th index in sql
 -- -------------------------------------------------
 -- lpad and rpad function
 select first_name, 
@@ -73,19 +72,25 @@ select first_name,
 	-- 1st => feild name or value we want to pass
     -- 2nd => minimum length it should be
     -- 3rd => character that should be added to left if it is not of desired length
--- lpad is used when we want a character to a at any minimum length
--- if the character if not of that minimum length lpad adds the character we have specifid to the left
+-- lpad is used when we want a character to be of any minimum length
+-- if the character is not of that minimum length lpad adds the character we have specifid to the left
 
 select first_name, 
 	rpad (first_name, 5, '!')
     from actor;
 
 -- ------------------------------------------------------
--- trim
+-- Trim, LTRIM, RTRIM
 
-select '    dual     ',
-trim('    dual     ') from dual;
+select 
+'    dual     ',
+trim('    dual     '), 
+LTRIM('   Hello') AS left_trimmed,
+RTRIM('World   ') AS right_trimmed 
+from dual;
 
+-- ------------------------------------------------------
+-- TRIM with (LEADING TRAILING BOTH)
 select 'Trim', 
 trim(leading 'z' from 'zzzSQLzzz'),
 -- Output => 'SQLzzz'
@@ -98,10 +103,9 @@ trim(trailing 'z' from 'zzzSQLzzz'),
 trim(both 'z' from 'zzzSQLzzz')
 -- Output => 'SQL'
 -- This syntax is used to trim desired character from both starting and ending of the string
-
 from dual;
-
 -- -----------------------------------------------------
+
 -- Replace
 SELECT first_name, REPLACE(first_name, 'E','A') FROM actor;
 
