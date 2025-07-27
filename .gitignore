@@ -1,0 +1,41 @@
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Compiled Executables and Object Files (C/C++/Go)
+*.exe
+*.o
+*.dll
+*.so
+*.out
+c
+v
+build/
+
+
+# Python Specific Files
+__pycache__/
+*.pyc
+*.pyd
+.Python/
+venv/
+.venv/
+
+
+# IDE and Editor Files
+.vscode/
+.idea/
+*.iml
+*.ipr
+*.iws
+*.suo
+*.user
+*.log
+*.tmp
+
+
+# Windows Zone Identifiers (Mark of the Web)
+*:Zone.Identifier
+
