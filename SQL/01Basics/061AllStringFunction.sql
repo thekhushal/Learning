@@ -4,7 +4,7 @@ SELECT
     char_length('Khushal Sharma') AS char_length,
 
         -- Diff between length and char length
-    length('漢'), char_length('漢'),
+        length('漢'), char_length('漢'),
 
     -- 2. LOWER and UPPER
     LOWER('Khushal Sharma') AS name_lowercase,
@@ -40,3 +40,13 @@ SELECT
 
     -- 11. FORMAT (MySQL only)
     FORMAT(1234567.891, 2) AS formatted_number;
+
+-- Locate
+-- substr
+-- replace
+-- trim
+    -- rtrim
+    -- trim(leading from'   hey   ')
+
+-- Aggregate function
+    -- min max sun count
