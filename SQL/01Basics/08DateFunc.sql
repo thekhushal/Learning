@@ -65,24 +65,6 @@ select now(), date_format(now(), 'this year is %Y');
 	-- here %y %y %M %t all mean different, go tho the documentation to check what each mean
 -- datediff()
 
--- where, like, in, between
--- and or not
--- functions, string func, number func, date func
--- aggregate functions (multi row functions) max min avg sum
--- with the where clause you can only use data thats already in the table, aggregate functions cannot be used with where clause
-	-- select customer_id, sum(amount) from payment where sum(amount) group by customer_id; this is wrong as due to the reasom above, use having in this query
--- i need to get that particular customer ,and the amount spend in the month of june where the total payment excede amount 50
--- select customer_id, amount from payment where month(payment_date) = 06 group by customer_id havig sum(amount) > 50
-
--- get the avg aomunt spended in each month by the stock
--- diff between where and having clause
--- distinct vs group by
--- what is sql and type of sql langusges
-
-
--- what are relationships 
-
-
 
 
 

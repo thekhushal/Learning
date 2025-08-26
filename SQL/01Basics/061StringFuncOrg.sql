@@ -1,11 +1,5 @@
 use sakila;
 
--- --------------------------
--- upper & lower function
-select first_name, lower(first_name), upper(lower(first_name)) from actor;
--- Here 'lower' is a function 
--- it can also be nested as we did in the third feild
-
 -- ---------------------------
 -- char length function
 select first_name, char_length(first_name)
@@ -13,6 +7,12 @@ from actor;
 
 -- Diff between length and char length
 select length('漢'), char_length('漢') from dual;
+
+-- --------------------------
+-- upper & lower function
+select first_name, lower(first_name), upper(lower(first_name)) from actor;
+-- Here 'lower' is a function 
+-- it can also be nested as we did in the third feild
 
 -- ----------------------------
 -- Concat
