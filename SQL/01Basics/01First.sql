@@ -17,7 +17,7 @@ show tables;
 desc actor;
 desc actor_info;
 -- "desc" is used to describe a table in the database
--- It gives a breif description of the database
+-- It gives a breif description of the table
 
 select * from actor;
 -- This statement selects everything from the actor table 
