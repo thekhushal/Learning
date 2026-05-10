@@ -4,9 +4,14 @@
 	-- code redable
 	-- pre-defined function
 -- --------------------
--- There are two category of functions
-	-- scalar func
-	-- multi line functions
+-- There are three category of functions
+	-- scalar funcntions: operate on a single value and return a single value. 
+		-- string functions, numeric functions, date functions
+		-- conversion functions, logical functions, miscellaneous
+	-- aggregate functions: operate on a set of values and return a single value. 
+		-- Eg. SUM(), AVG(), COUNT(), MAX(), MIN() etc.
+	-- multi line functions: operate on multiple lines and return a single value. 
+		-- Eg. GROUP_CONCAT(), JSON_ARRAYAGG() etc.
 -- --------------------
 -- string function : Todays topic
 -- --------------------

@@ -2,7 +2,7 @@
 SELECT * FROM EMPLOYEE;
 SELECT * FROM DEPARTMENT;
 SELECT * FROM PROJECT;
-SELECT * FROM WORKS_ON;T
+SELECT * FROM WORKS_ON;
 -- Using the company.sql database (posted in with this assignment), write the following SQL queries.
 
 
@@ -16,11 +16,24 @@ on e.Super_Ssn = s.Ssn
 WHERE s.Fname = 'Franklin' AND s.Minit = 'T' AND s.Lname = 'Wong';
 
 -- 2. For each project, list the project name, project number, and the average hours per week (by all employees) spent on that project.
+
 SELECT p.Pname, p.Pnumber, avg(w.Hours) 
 FROM PROJECT as p 
 JOIN WORKS_ON as w 
-on p.Pnumber = w.Pno
+    on p.Pnumber = w.Pno
 GROUP BY p.Pnumber;
+
+SELECT 
+    p.Pname, p.Pnumber, e.Dno,  
+    avg(w.Hours), count(*)
+FROM WORKS_ON as w 
+JOIN PROJECT as p 
+    on p.Pnumber = w.Pno
+JOIN EMPLOYEE as e 
+    on e.Ssn = w.Essn
+GROUP BY w.Pno, e.Dno 
+;
+-- productx 20.66
 
 -- 3. For each department, retrieve the department name and the maximum salary of employees working in that department. Order the output by department number in ascending order.
 SELECT 
@@ -38,6 +51,11 @@ SELECT
 FROM EMPLOYEE
 WHERE Sex = 'M';
 
+SELECT 
+    avg(Salary)
+FROM EMPLOYEE
+GROUP BY Sex
+HAVING Sex = 'M';
 
 -- 5. For each department whose average salary is greater than $45,000, retrieve the department name and the number of employees in that department.
 SELECT 
@@ -66,12 +84,14 @@ FROM (SELECT * FROM EMPLOYEE WHERE sex = 'F');
 
 -- 8. Find all employees who are not assigned to any project using a SET operation in SQL
 
+SELECT * FROM EMPLOYEE as e
+where not EXISTS(
+SELECT 1 FROM WORKS_ON as w
+where w.essn = e.ssn
+) ;
+
+SELECT * FROM EMPLOYEE
+WHERE Ssn in (
 SELECT Ssn FROM EMPLOYEE
 EXCEPT
-SELECT DISTINCT Essn FROM WORKS_ON;
-
--- SELECT * FROM EMPLOYEE
--- WHERE Ssn in (
--- SELECT Ssn FROM EMPLOYEE
--- EXCEPT
--- SELECT DISTINCT Essn FROM WORKS_ON);
+SELECT DISTINCT Essn FROM WORKS_ON);
