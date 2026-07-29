@@ -1,0 +1,55 @@
+# ==========================================================
+# Java .gitignore
+# For Learning/Java
+# ==========================================================
+
+# Compiled Java bytecode
+*.class
+
+# Packaged Java archives
+*.jar
+*.war
+*.ear
+
+# JVM crash logs
+hs_err_pid*
+
+# ==========================================================
+# Build tools
+# ==========================================================
+
+# Maven
+target/
+
+# Gradle
+.gradle/
+build/
+
+# ==========================================================
+# IDEs
+# ==========================================================
+
+# VS Code
+.vscode/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# Eclipse
+.project
+.classpath
+.settings/
+
+# NetBeans
+nbproject/
+nbbuild/
+dist/
+
+# ==========================================================
+# Temporary files
+# ==========================================================
+
+*.log
+*.tmp
+*.bak
