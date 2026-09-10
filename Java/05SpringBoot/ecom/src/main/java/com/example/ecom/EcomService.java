@@ -13,12 +13,12 @@ public class EcomService {
         this.repository = repository;
     }
 
-    // Create Single Product
+    // Post Single Product
     public String createProduct(Product product){
         return repository.saveProduct(product);
     }
 
-    // Creating Products bulk
+    // Post Multiple Products
     public String createProduct(List<Product> productList){
         for (Product product: productList){
             repository.saveProduct(product);
@@ -26,23 +26,28 @@ public class EcomService {
         return "Products saved sucessfully";
     }
 
-    // Retriving Product
+    // Get all Products
     public List<Product> getProducts(){
         return repository.getProducts();
     }
 
-    // get Product by id
+    // Get Product by id
     public Product getProduct(int id){
         return repository.getProduct(id);
     }
 
-    // get Product by name
+    // Get Product by name
     public Product getProductByName(String name){
         return repository.getProductByName(name);
     }
 
-    // getProductByCombination
+    // Get Product By Combination
     public Product getProductByCombination(int id, String name){
         return repository.getProductByCombination(id, name);
+    }
+
+    // Update Data
+    public String updateProduct(int id, Product product){
+        return repository.updateProduct(id, product);
     }
 }

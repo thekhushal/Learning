@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-// import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -58,5 +58,13 @@ public class EcomControler {
         return service.getProductByCombination(id, name);
     }
 
+    // Update Data
+    @PutMapping ("/product/{id}")
+    public String updateProduct(
+        @PathVariable int id, 
+        @RequestBody Product product
+    ){
+        return service.updateProduct(id, product);
+    }
     
 }

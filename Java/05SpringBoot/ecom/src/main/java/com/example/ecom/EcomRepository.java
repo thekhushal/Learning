@@ -7,13 +7,13 @@ import org.springframework.stereotype.Repository;
 
 @Repository 
 public class EcomRepository {
-    Product product;
+    // Product product;
 
     // creating a list of products
     List<Product> products = new ArrayList<>();
     int nextid = 1;
-    
-    // Create Product
+
+    // Post Product
     public String saveProduct(Product product){
         product.setId(nextid);
         nextid++;
@@ -22,7 +22,7 @@ public class EcomRepository {
         return "Product created sucessfully";
     }
 
-    // Retriving Product
+    // Get all Products
     public List<Product> getProducts() {
         return products;
     }
@@ -47,7 +47,7 @@ public class EcomRepository {
         return null;
     }
 
-    // getProductByCombination
+    // Get Product By Combination
     public Product getProductByCombination(int id, String name){
         for (Product p : products){
             if (p.getId() == id & p.getName().equals(name)){
@@ -55,5 +55,17 @@ public class EcomRepository {
             }
         }
         return null;
+    }
+
+    // Update product
+    public String updateProduct(int id, Product product){
+        for (Product p: products){
+            if (p.getId() == id){
+                p.setName(product.getName());
+                p.setCategory(product.getCategory());
+                p.setPrice(product.getPrice());
+            }
+        }
+        return "Product updated sucessfully";
     }
 }
