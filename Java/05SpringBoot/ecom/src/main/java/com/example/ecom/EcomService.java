@@ -13,9 +13,17 @@ public class EcomService {
         this.repository = repository;
     }
 
-    // Creating Product
+    // Create Single Product
     public String createProduct(Product product){
         return repository.saveProduct(product);
+    }
+
+    // Creating Products bulk
+    public String createProduct(List<Product> productList){
+        for (Product product: productList){
+            repository.saveProduct(product);
+        }
+        return "Products saved sucessfully";
     }
 
     // Retriving Product

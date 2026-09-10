@@ -12,6 +12,7 @@ public class EcomRepository {
     // creating a list of products
     List<Product> products = new ArrayList<>();
     int nextid = 1;
+    
     // Create Product
     public String saveProduct(Product product){
         product.setId(nextid);
