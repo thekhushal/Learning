@@ -3,6 +3,7 @@ package com.example.ecom;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -67,4 +68,12 @@ public class EcomControler {
         return service.updateProduct(id, product);
     }
     
+    // Patch Data
+    @PatchMapping ("/product/{id}")
+    public String patchProduct(
+        @PathVariable int id,
+        @RequestBody Product product
+    ){
+        return service.patchProduct(id, product);
+    }
 }

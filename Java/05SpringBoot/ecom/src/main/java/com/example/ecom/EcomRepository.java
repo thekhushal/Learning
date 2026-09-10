@@ -68,4 +68,23 @@ public class EcomRepository {
         }
         return "Product updated sucessfully";
     }
+
+    // Patch product
+    public String patchProduct(int id, Product request){
+        for (Product product : products){
+            if (product.getId() == id){
+                // set operations
+                if (request.getName() != null){
+                    product.setName(request.getName());
+                }
+                if (request.getPrice() != 0){
+                    product.setPrice(request.getPrice());
+                }
+                if (request.getCategory() != null){
+                    product.setCategory(request.getCategory());
+                }
+            }
+        }
+        return "Patch Update Sucessfull ";
+    }
 }

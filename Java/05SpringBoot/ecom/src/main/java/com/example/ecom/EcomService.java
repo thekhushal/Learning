@@ -50,4 +50,9 @@ public class EcomService {
     public String updateProduct(int id, Product product){
         return repository.updateProduct(id, product);
     }
+
+    // Patch Data
+    public String patchProduct(int id, Product product){
+        return repository.patchProduct(id, product);
+    }
 }
