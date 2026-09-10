@@ -77,7 +77,7 @@ public class EcomRepository {
                 if (request.getName() != null){
                     product.setName(request.getName());
                 }
-                if (request.getPrice() != 0){
+                if (request.getPrice() != null){
                     product.setPrice(request.getPrice());
                 }
                 if (request.getCategory() != null){
