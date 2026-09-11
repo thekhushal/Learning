@@ -55,4 +55,9 @@ public class EcomService {
     public String patchProduct(int id, Product product){
         return repository.patchProduct(id, product);
     }
+
+    // Delete Data
+    public String deleteProduct(int id){
+        return repository.deleteProduct(id);
+    }
 }

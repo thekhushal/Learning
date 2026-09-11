@@ -87,4 +87,15 @@ public class EcomRepository {
         }
         return "Patch Update Sucessfull ";
     }
+
+    // Delete Product
+    public String deleteProduct(int id){
+
+        for (int i = 0; i<products.size(); i++){
+            if (products.get(i).getId() == id){
+                products.remove(i);
+            }
+        }
+        return "Deleted product sucessfully";
+    }
 }
