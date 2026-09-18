@@ -53,7 +53,7 @@ public class EcomControler {
 
     // Get Product by id
     @GetMapping ("/product/{id}")
-    public Product getProduct(@PathVariable int id){
+    public ProductResponse getProduct(@PathVariable int id){
         return service.getProduct(id);
     }
 

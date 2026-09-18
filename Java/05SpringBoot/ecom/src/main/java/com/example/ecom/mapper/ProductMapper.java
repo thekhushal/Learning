@@ -45,9 +45,7 @@ public class ProductMapper {
         List<ProductResponse> response = new ArrayList<>();
 
         for (Product product : products){
-            ProductResponse ray = new ProductResponse();
-            ray.setName(product.getName());
-            response.add(ray);
+            response.add(toResponse(product));
         }
 
         return response;

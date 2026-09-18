@@ -1,5 +1,6 @@
 package com.example.ecom.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -45,8 +46,10 @@ public class EcomService {
     }
 
     // Get Product by id
-    public Product getProduct(int id){
-        return repository.getProduct(id);
+    public ProductResponse getProduct(int id){
+        Product product = repository.getProduct(id);
+        ProductResponse response = mapper.toResponse(product);
+        return response;
     }
 
     // Get Product by name
