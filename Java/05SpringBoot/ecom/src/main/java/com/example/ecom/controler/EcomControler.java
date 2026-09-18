@@ -1,4 +1,4 @@
-package com.example.ecom;
+package com.example.ecom.controler;
 
 import java.util.List;
 
@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.example.ecom.Product;
+import com.example.ecom.service.EcomService;
 
 @RestController 
 public class EcomControler {

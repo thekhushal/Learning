@@ -1,8 +1,11 @@
-package com.example.ecom;
+package com.example.ecom.service;
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+
+import com.example.ecom.Product;
+import com.example.ecom.repository.EcomRepository;
 
 @Service 
 public class EcomService {

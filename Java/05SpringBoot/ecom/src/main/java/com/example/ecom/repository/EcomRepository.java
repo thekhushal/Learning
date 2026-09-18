@@ -1,9 +1,11 @@
-package com.example.ecom;
+package com.example.ecom.repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
+
+import com.example.ecom.Product;
 
 @Repository 
 public class EcomRepository {
