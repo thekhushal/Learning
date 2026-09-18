@@ -1,56 +1,30 @@
 package com.example.ecom;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class Product {
-    private int id;
 
-    @NotBlank
+    private Integer id;
+
     private String name;
-
-    @NotBlank 
+    private String description;
     private String category;
+    private String brand;
 
-    @NotNull 
-    @Positive 
-    @Size (min=500, max = 5000)
     private Integer price;
+    private Integer stockQuantity;
 
-    public Product(String name, String category, Integer price){
-        // this.id = id;
-        this.name = name;
-        this.category = category;
-        this.price = price;
-    }
+    private Boolean available;
 
-    // Getters
-    public String getCategory() {
-        return category;
-    }
-    public int getId() {
-        return id;
-    }
-    public String getName() {
-        return name;
-    }
-    public Integer getPrice() {
-        return price;
-    }
+    private Double rating;
+    private Integer reviewCount;
 
-    // Setters
-    public void setId(int id) {
-        this.id = id;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-    public void setCategory(String category) {
-        this.category = category;
-    }
-    public void setPrice(Integer price) {
-        this.price = price;
-    }
+    private String sku;
+    private String manufacturer;
+
+    private String color;
+    private String warranty;
 }
