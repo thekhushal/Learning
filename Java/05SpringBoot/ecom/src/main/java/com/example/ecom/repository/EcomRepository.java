@@ -15,13 +15,13 @@ public class EcomRepository {
     List<Product> products = new ArrayList<>();
     int nextid = 1;
 
-    // Post Product
-    public String saveProduct(Product product){
+    // Create Product
+    public Product saveProduct(Product product){
         product.setId(nextid);
         nextid++;
 
         products.add(product);
-        return "Product created sucessfully";
+        return product;
     }
 
     // Get all Products

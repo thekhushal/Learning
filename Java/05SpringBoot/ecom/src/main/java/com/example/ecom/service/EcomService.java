@@ -5,20 +5,30 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.example.ecom.Product;
+import com.example.ecom.dto.CreateProductRequest;
+import com.example.ecom.dto.ProductResponse;
+import com.example.ecom.mapper.ProductMapper;
 import com.example.ecom.repository.EcomRepository;
+
+import tools.jackson.databind.deser.bean.CreatorCandidate;
 
 @Service 
 public class EcomService {
 
     // DI
     EcomRepository repository;
-    public EcomService(EcomRepository repository){
+    ProductMapper mapper;
+    public EcomService(EcomRepository repository, ProductMapper mapper){
         this.repository = repository;
+        this.mapper = mapper;
     }
 
     // Post Single Product
-    public String createProduct(Product product){
-        return repository.saveProduct(product);
+    public ProductResponse createProduct(CreateProductRequest request){
+
+        Product product = mapper.toProduct(request);
+        Product savedProduct = repository.saveProduct(product);
+        return mapper.toResponse(savedProduct);
     }
 
     // Post Multiple Products

@@ -13,7 +13,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ecom.Product;
+import com.example.ecom.dto.CreateProductRequest;
+import com.example.ecom.dto.ProductResponse;
 import com.example.ecom.service.EcomService;
+
+import jakarta.validation.Valid;
 
 @RestController 
 public class EcomControler {
@@ -24,13 +28,18 @@ public class EcomControler {
         this.service = service;
     }
 
-    // Post 1 Product
+    // Create 1 Product
     @PostMapping("/product")
-    public String createProduct(@RequestBody Product product){
-        return service.createProduct(product);
+    public ProductResponse createProduct
+    (
+        @Valid 
+        @RequestBody CreateProductRequest request
+    ){
+                
+        return service.createProduct(request);
     }
 
-    // Post List of product
+    // Create List of product
     @PostMapping ("/product/bulk")
     public String createProduct(@RequestBody List<Product> productList){
         return service.createProduct(productList);
