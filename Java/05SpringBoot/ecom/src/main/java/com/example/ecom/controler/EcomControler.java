@@ -47,7 +47,7 @@ public class EcomControler {
 
     // Get all Product
     @GetMapping(value = "/product")
-    public List<Product> getProducts(){
+    public List<ProductResponse> getProducts(){
         return service.getProducts();
     }
 

@@ -10,7 +10,6 @@ import com.example.ecom.dto.ProductResponse;
 import com.example.ecom.mapper.ProductMapper;
 import com.example.ecom.repository.EcomRepository;
 
-import tools.jackson.databind.deser.bean.CreatorCandidate;
 
 @Service 
 public class EcomService {
@@ -23,7 +22,7 @@ public class EcomService {
         this.mapper = mapper;
     }
 
-    // Post Single Product
+    // Create Single Product
     public ProductResponse createProduct(CreateProductRequest request){
 
         Product product = mapper.toProduct(request);
@@ -40,8 +39,9 @@ public class EcomService {
     }
 
     // Get all Products
-    public List<Product> getProducts(){
-        return repository.getProducts();
+    public List<ProductResponse> getProducts(){
+        List<Product> products = repository.getProducts();
+        return mapper.productsToResponse(products);
     }
 
     // Get Product by id

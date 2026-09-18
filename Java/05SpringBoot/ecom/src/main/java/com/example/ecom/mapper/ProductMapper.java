@@ -1,9 +1,15 @@
 package com.example.ecom.mapper;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.stereotype.Component;
+
 import com.example.ecom.Product;
 import com.example.ecom.dto.CreateProductRequest;
 import com.example.ecom.dto.ProductResponse;
 
+@Component 
 public class ProductMapper {
     public Product toProduct(CreateProductRequest request){
         Product product = new Product();
@@ -32,6 +38,18 @@ public class ProductMapper {
         response.setAvailable(product.getAvailable());
         response.setColor(product.getColor());
         response.setWarranty(product.getWarranty());
+        return response;
+    }
+
+    public List<ProductResponse> productsToResponse(List<Product> products){
+        List<ProductResponse> response = new ArrayList<>();
+
+        for (Product product : products){
+            ProductResponse ray = new ProductResponse();
+            ray.setName(product.getName());
+            response.add(ray);
+        }
+
         return response;
     }
 }
