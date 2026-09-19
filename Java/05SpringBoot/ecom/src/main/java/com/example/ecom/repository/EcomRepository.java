@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.example.ecom.Product;
+import com.example.ecom.dto.ProductResponse;
 
 @Repository 
 public class EcomRepository {
@@ -60,15 +61,24 @@ public class EcomRepository {
     }
 
     // Update product
-    public String updateProduct(int id, Product product){
+    public Product updateProduct(int id, Product product){
         for (Product p: products){
             if (p.getId() == id){
                 p.setName(product.getName());
+                p.setDescription(product.getDescription());
                 p.setCategory(product.getCategory());
+                p.setBrand(product.getBrand());
                 p.setPrice(product.getPrice());
+                p.setStockQuantity(product.getStockQuantity());
+                p.setAvailable(product.getAvailable());
+                p.setSku(product.getSku());
+                p.setManufacturer(product.getManufacturer());
+                p.setColor(product.getColor());
+                p.setWarranty(product.getWarranty());
+                return p;
             }
         }
-        return "Product updated sucessfully";
+        return null ;
     }
 
     // Patch product

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.ecom.Product;
 import com.example.ecom.dto.CreateProductRequest;
 import com.example.ecom.dto.ProductResponse;
+import com.example.ecom.dto.UpdateProductRequest;
 import com.example.ecom.service.EcomService;
 
 import jakarta.validation.Valid;
@@ -59,13 +60,13 @@ public class EcomControler {
 
     // Get product by name
     @GetMapping(value = "/product", params = "name")
-    public Product geProduct(@RequestParam String name){
+    public ProductResponse geProduct(@RequestParam String name){
         return service.getProductByName(name);
     }
 
     // Get product by Combination (name and id)
     @GetMapping (value = "/product/{id}", params = "name")
-    public Product getProductByCombination(
+    public ProductResponse getProductByCombination(
         @PathVariable int id, 
         @RequestParam String name
     ){
@@ -74,11 +75,11 @@ public class EcomControler {
 
     // Update Data
     @PutMapping ("/product/{id}")
-    public String updateProduct(
+    public ProductResponse updateProduct(
         @PathVariable int id, 
-        @RequestBody Product product
+        @RequestBody UpdateProductRequest data
     ){
-        return service.updateProduct(id, product);
+        return service.updateProduct(id, data);
     }
     
     // Patch Data
