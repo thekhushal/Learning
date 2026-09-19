@@ -82,22 +82,47 @@ public class EcomRepository {
     }
 
     // Patch product
-    public String patchProduct(int id, Product request){
+    public Product patchProduct(int id, Product request){
         for (Product product : products){
             if (product.getId() == id){
                 // set operations
                 if (request.getName() != null){
                     product.setName(request.getName());
                 }
-                if (request.getPrice() != null){
-                    product.setPrice(request.getPrice());
+                if (request.getDescription() != null){
+                    product.setDescription(request.getDescription());
                 }
                 if (request.getCategory() != null){
                     product.setCategory(request.getCategory());
                 }
+                if (request.getBrand() != null){
+                    product.setBrand(request.getBrand());
+                }
+                if (request.getPrice() != null){
+                    product.setPrice(request.getPrice());
+                }
+                if (request.getStockQuantity() != null){
+                    product.setStockQuantity(request.getStockQuantity());
+                }
+                if (request.getAvailable() != null){
+                    product.setAvailable(request.getAvailable());
+                }
+                if (request.getSku() != null){
+                    product.setSku(request.getSku());
+                }
+                if (request.getManufacturer() != null){
+                    product.setManufacturer(request.getManufacturer());
+                }
+                if (request.getColor() != null){
+                    product.setColor(request.getColor());
+                }
+                if (request.getWarranty() != null){
+                    product.setWarranty(request.getWarranty());
+                }
+                return product;
             }
         }
-        return "Patch Update Sucessfull ";
+        return null;
     }
 
     // Delete Product

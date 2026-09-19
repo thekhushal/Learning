@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ecom.Product;
 import com.example.ecom.dto.CreateProductRequest;
+import com.example.ecom.dto.PatchProductRequest;
 import com.example.ecom.dto.ProductResponse;
 import com.example.ecom.dto.UpdateProductRequest;
 import com.example.ecom.service.EcomService;
@@ -84,11 +85,11 @@ public class EcomControler {
     
     // Patch Data
     @PatchMapping ("/product/{id}")
-    public String patchProduct(
+    public ProductResponse patchProduct(
         @PathVariable int id,
-        @RequestBody Product product
+        @RequestBody PatchProductRequest request
     ){
-        return service.patchProduct(id, product);
+        return service.patchProduct(id, request);
     }
 
     // Delete Data

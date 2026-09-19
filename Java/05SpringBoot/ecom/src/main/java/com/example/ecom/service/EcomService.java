@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.ecom.Product;
 import com.example.ecom.dto.CreateProductRequest;
+import com.example.ecom.dto.PatchProductRequest;
 import com.example.ecom.dto.ProductResponse;
 import com.example.ecom.dto.UpdateProductRequest;
 import com.example.ecom.mapper.ProductMapper;
@@ -79,9 +80,13 @@ public class EcomService {
         return response;
     }
 
-    // Patch Data
-    public String patchProduct(int id, Product product){
-        return repository.patchProduct(id, product);
+    // Patch Data By id
+    public ProductResponse patchProduct(int id, PatchProductRequest request){
+        Product productRequest = mapper.PPRtoProduct(request);
+        Product product = repository.patchProduct(id, productRequest);
+
+        ProductResponse response = mapper.toResponse(product);
+        return response;
     }
 
     // Delete Data
