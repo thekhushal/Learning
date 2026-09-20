@@ -1,10 +1,14 @@
 package com.example.ecom;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor 
+@AllArgsConstructor 
 public class Product {
 
     private Integer id;

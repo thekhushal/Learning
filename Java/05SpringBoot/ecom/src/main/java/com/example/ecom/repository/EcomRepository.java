@@ -3,15 +3,77 @@ package com.example.ecom.repository;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.example.ecom.Product;
-import com.example.ecom.dto.ProductResponse;
 
 @Repository 
 public class EcomRepository {
-    // Product product;
 
+    // JDBC
+    private final JdbcTemplate jdbcTemplate;
+
+    // DI
+    EcomRepository(JdbcTemplate jdbcTemplate){
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
+    // Get products from database
+    public Product findById(Integer id) {
+
+        String sql = """
+                SELECT
+                    id,
+                    name,
+                    description,
+                    category,
+                    brand,
+                    price,
+                    stock_quantity,
+                    available,
+                    rating,
+                    review_count,
+                    sku,
+                    manufacturer,
+                    color,
+                    warranty
+                FROM products
+                WHERE id = ?
+                """;
+
+        return jdbcTemplate.queryForObject(
+                sql,
+                (rs, rowNum) -> {
+
+                    Product product = new Product();
+
+                    product.setId(rs.getInt("id"));
+                    product.setName(rs.getString("name"));
+                    product.setDescription(rs.getString("description"));
+                    product.setCategory(rs.getString("category"));
+                    product.setBrand(rs.getString("brand"));
+
+                    product.setPrice(rs.getInt("price"));
+                    product.setStockQuantity(rs.getInt("stock_quantity"));
+
+                    product.setAvailable(rs.getBoolean("available"));
+
+                    product.setRating(rs.getDouble("rating"));
+                    product.setReviewCount(rs.getInt("review_count"));
+
+                    product.setSku(rs.getString("sku"));
+                    product.setManufacturer(rs.getString("manufacturer"));
+
+                    product.setColor(rs.getString("color"));
+                    product.setWarranty(rs.getString("warranty"));
+
+                    return product;
+                },
+                id
+        );
+    }
+    
     // creating a list of products
     List<Product> products = new ArrayList<>();
     int nextid = 1;

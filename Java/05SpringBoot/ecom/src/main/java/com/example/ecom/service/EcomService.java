@@ -49,7 +49,7 @@ public class EcomService {
 
     // Get Product by id
     public ProductResponse getProduct(int id){
-        Product product = repository.getProduct(id);
+        Product product = repository.findById(id);
         ProductResponse response = mapper.toResponse(product);
         return response;
     }
