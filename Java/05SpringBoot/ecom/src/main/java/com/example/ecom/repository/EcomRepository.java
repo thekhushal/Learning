@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.example.ecom.Product;
@@ -18,6 +19,35 @@ public class EcomRepository {
     EcomRepository(JdbcTemplate jdbcTemplate){
         this.jdbcTemplate = jdbcTemplate;
     }
+
+    // Row Mapper
+    private final RowMapper<Product> productRowMapper = (rs, rowNum) -> {
+
+        Product product = new Product();
+
+        product.setId(rs.getInt("id"));
+        product.setName(rs.getString("name"));
+        product.setDescription(rs.getString("description"));
+        product.setCategory(rs.getString("category"));
+        product.setBrand(rs.getString("brand"));
+
+        product.setPrice(rs.getInt("price"));
+        product.setStockQuantity(rs.getInt("stock_quantity"));
+
+        product.setAvailable(rs.getBoolean("available"));
+
+        product.setRating(rs.getDouble("rating"));
+        product.setReviewCount(rs.getInt("review_count"));
+
+        product.setSku(rs.getString("sku"));
+        product.setManufacturer(rs.getString("manufacturer"));
+
+        product.setColor(rs.getString("color"));
+        product.setWarranty(rs.getString("warranty"));
+
+        return product;
+    };
+
 // Get Queries ON DB
     // Get all products FROM DB 
     public List<Product> getProducts() {
@@ -29,33 +59,8 @@ public class EcomRepository {
                 """;
 
         return jdbcTemplate.query(
-                sql,
-                (rs, rowNum) -> {
-
-                    Product product = new Product();
-
-                    product.setId(rs.getInt("id"));
-                    product.setName(rs.getString("name"));
-                    product.setDescription(rs.getString("description"));
-                    product.setCategory(rs.getString("category"));
-                    product.setBrand(rs.getString("brand"));
-
-                    product.setPrice(rs.getInt("price"));
-                    product.setStockQuantity(rs.getInt("stock_quantity"));
-
-                    product.setAvailable(rs.getBoolean("available"));
-
-                    product.setRating(rs.getDouble("rating"));
-                    product.setReviewCount(rs.getInt("review_count"));
-
-                    product.setSku(rs.getString("sku"));
-                    product.setManufacturer(rs.getString("manufacturer"));
-
-                    product.setColor(rs.getString("color"));
-                    product.setWarranty(rs.getString("warranty"));
-
-                    return product;
-                }
+            sql,
+            productRowMapper
         );
     }
 
@@ -83,34 +88,9 @@ public class EcomRepository {
                 """;
 
         return jdbcTemplate.queryForObject(
-                sql,
-                (rs, rowNum) -> {
-
-                    Product product = new Product();
-
-                    product.setId(rs.getInt("id"));
-                    product.setName(rs.getString("name"));
-                    product.setDescription(rs.getString("description"));
-                    product.setCategory(rs.getString("category"));
-                    product.setBrand(rs.getString("brand"));
-
-                    product.setPrice(rs.getInt("price"));
-                    product.setStockQuantity(rs.getInt("stock_quantity"));
-
-                    product.setAvailable(rs.getBoolean("available"));
-
-                    product.setRating(rs.getDouble("rating"));
-                    product.setReviewCount(rs.getInt("review_count"));
-
-                    product.setSku(rs.getString("sku"));
-                    product.setManufacturer(rs.getString("manufacturer"));
-
-                    product.setColor(rs.getString("color"));
-                    product.setWarranty(rs.getString("warranty"));
-
-                    return product;
-                },
-                id
+            sql,
+            productRowMapper,
+            id
         );
     }
     
@@ -123,32 +103,7 @@ public class EcomRepository {
 
         List<Product> products = jdbcTemplate.query(
             sql,
-            (rs, rowNum) -> {
-
-                Product product = new Product();
-
-                product.setId(rs.getInt("id"));
-                product.setName(rs.getString("name"));
-                product.setDescription(rs.getString("description"));
-                product.setCategory(rs.getString("category"));
-                product.setBrand(rs.getString("brand"));
-
-                product.setPrice(rs.getInt("price"));
-                product.setStockQuantity(rs.getInt("stock_quantity"));
-
-                product.setAvailable(rs.getBoolean("available"));
-
-                product.setRating(rs.getDouble("rating"));
-                product.setReviewCount(rs.getInt("review_count"));
-
-                product.setSku(rs.getString("sku"));
-                product.setManufacturer(rs.getString("manufacturer"));
-
-                product.setColor(rs.getString("color"));
-                product.setWarranty(rs.getString("warranty"));
-
-                return product;
-            },
+            productRowMapper,
             name
         );
 
