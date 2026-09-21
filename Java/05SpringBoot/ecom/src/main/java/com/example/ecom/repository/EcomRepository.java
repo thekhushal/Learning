@@ -18,7 +18,7 @@ public class EcomRepository {
     EcomRepository(JdbcTemplate jdbcTemplate){
         this.jdbcTemplate = jdbcTemplate;
     }
-
+// Get Queries ON DB
     // Get all products FROM DB 
     public List<Product> getProducts() {
 
@@ -115,25 +115,70 @@ public class EcomRepository {
     }
     
     // Get products by name FROM DB
-    // public List<Product> getProductByName(String name){
-    //     String sql = """
-    //             select * from Products;
-    //             """;
-    // }
+    public List<Product> getProductByName(String name){
+        String sql = """
+                select * from Products
+                where name = ?;
+                """;
 
+        List<Product> products = jdbcTemplate.query(
+            sql,
+            (rs, rowNum) -> {
+
+                Product product = new Product();
+
+                product.setId(rs.getInt("id"));
+                product.setName(rs.getString("name"));
+                product.setDescription(rs.getString("description"));
+                product.setCategory(rs.getString("category"));
+                product.setBrand(rs.getString("brand"));
+
+                product.setPrice(rs.getInt("price"));
+                product.setStockQuantity(rs.getInt("stock_quantity"));
+
+                product.setAvailable(rs.getBoolean("available"));
+
+                product.setRating(rs.getDouble("rating"));
+                product.setReviewCount(rs.getInt("review_count"));
+
+                product.setSku(rs.getString("sku"));
+                product.setManufacturer(rs.getString("manufacturer"));
+
+                product.setColor(rs.getString("color"));
+                product.setWarranty(rs.getString("warranty"));
+
+                return product;
+            },
+            name
+        );
+
+        return products;
+    }
+
+
+// Post Queries ON DB
+    // Adding a product to DB
+    public Product crateProduct(Product product){
+
+        String sql = """
+            INSERT INTO 
+            """;
+        Product savedProduct;
+        return savedProduct;
+    }
     // --------------------------------------------
     // creating a list of products
     List<Product> products = new ArrayList<>();
     int nextid = 1;
 
     // Create Product
-    public Product saveProduct(Product product){
-        product.setId(nextid);
-        nextid++;
+    // public Product saveProduct(Product product){
+    //     product.setId(nextid);
+    //     nextid++;
 
-        products.add(product);
-        return product;
-    }
+    //     products.add(product);
+    //     return product;
+    // }
 
     // Get all Products
     // public List<Product> getProducts() {

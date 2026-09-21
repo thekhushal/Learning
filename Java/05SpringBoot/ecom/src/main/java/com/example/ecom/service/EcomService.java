@@ -29,17 +29,17 @@ public class EcomService {
     public ProductResponse createProduct(CreateProductRequest request){
 
         Product product = mapper.toProduct(request);
-        Product savedProduct = repository.saveProduct(product);
+        Product savedProduct = repository.createProduct(product);
         return mapper.toResponse(savedProduct);
     }
 
     // Post Multiple Products
-    public String createProduct(List<Product> productList){
-        for (Product product: productList){
-            repository.saveProduct(product);
-        }
-        return "Products saved sucessfully";
-    }
+    // public String createProduct(List<Product> productList){
+    //     for (Product product: productList){
+    //         repository.saveProduct(product);
+    //     }
+    //     return "Products saved sucessfully";
+    // }
 
     // Get all Products
     public List<ProductResponse> getProducts(){
@@ -55,10 +55,10 @@ public class EcomService {
     }
 
     // Get Product by name
-    public ProductResponse getProductByName(String name){
-        Product product = repository.getProductByName(name);
+    public List<ProductResponse> getProductByName(String name){
+        List<Product> products = repository.getProductByName(name);
 
-        ProductResponse response = mapper.toResponse(product);
+        List<ProductResponse> response = mapper.productsToResponse(products);
         return response;
     }
 

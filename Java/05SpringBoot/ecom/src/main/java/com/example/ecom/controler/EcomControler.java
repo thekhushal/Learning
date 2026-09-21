@@ -61,7 +61,7 @@ public class EcomControler {
 
     // Get product by name
     @GetMapping(value = "/product", params = "name")
-    public ProductResponse geProduct(@RequestParam String name){
+    public List<ProductResponse> getProduct(@RequestParam String name){
         return service.getProductByName(name);
     }
 
