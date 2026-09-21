@@ -19,7 +19,47 @@ public class EcomRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    // Get products from database
+    // Get all products FROM DB 
+    public List<Product> getProducts() {
+
+        String sql = """
+                SELECT
+                    *
+                FROM products;
+                """;
+
+        return jdbcTemplate.query(
+                sql,
+                (rs, rowNum) -> {
+
+                    Product product = new Product();
+
+                    product.setId(rs.getInt("id"));
+                    product.setName(rs.getString("name"));
+                    product.setDescription(rs.getString("description"));
+                    product.setCategory(rs.getString("category"));
+                    product.setBrand(rs.getString("brand"));
+
+                    product.setPrice(rs.getInt("price"));
+                    product.setStockQuantity(rs.getInt("stock_quantity"));
+
+                    product.setAvailable(rs.getBoolean("available"));
+
+                    product.setRating(rs.getDouble("rating"));
+                    product.setReviewCount(rs.getInt("review_count"));
+
+                    product.setSku(rs.getString("sku"));
+                    product.setManufacturer(rs.getString("manufacturer"));
+
+                    product.setColor(rs.getString("color"));
+                    product.setWarranty(rs.getString("warranty"));
+
+                    return product;
+                }
+        );
+    }
+
+    // Get 1 product by id FROM DB
     public Product findById(Integer id) {
 
         String sql = """
@@ -74,6 +114,14 @@ public class EcomRepository {
         );
     }
     
+    // Get products by name FROM DB
+    // public List<Product> getProductByName(String name){
+    //     String sql = """
+    //             select * from Products;
+    //             """;
+    // }
+
+    // --------------------------------------------
     // creating a list of products
     List<Product> products = new ArrayList<>();
     int nextid = 1;
@@ -88,29 +136,29 @@ public class EcomRepository {
     }
 
     // Get all Products
-    public List<Product> getProducts() {
-        return products;
-    }
+    // public List<Product> getProducts() {
+    //     return products;
+    // }
 
     // Get product by id
-    public Product getProduct(int id){
-        for(Product p : products){
-            if (p.getId() == id){
-                return p;
-            }
-        }
-        return null;
-    }
+    // public Product getProduct(int id){
+    //     for(Product p : products){
+    //         if (p.getId() == id){
+    //             return p;
+    //         }
+    //     }
+    //     return null;
+    // }
 
     // Get products by name
-    public Product getProductByName(String name){
-        for (Product p : products){
-            if (p.getName().equals(name)){
-                return p;
-            }
-        }
-        return null;
-    }
+    // public Product getProductByName(String name){
+    //     for (Product p : products){
+    //         if (p.getName().equals(name)){
+    //             return p;
+    //         }
+    //     }
+    //     return null;
+    // }
 
     // Get Product By Combination
     public Product getProductByCombination(int id, String name){
