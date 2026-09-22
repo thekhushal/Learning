@@ -1,10 +1,14 @@
 package com.example.ecom.repository;
 
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import com.example.ecom.Product;
@@ -113,13 +117,65 @@ public class EcomRepository {
 
 // Post Queries ON DB
     // Adding a product to DB
-    public Product crateProduct(Product product){
+    public Product createProduct(Product product){
 
         String sql = """
-            INSERT INTO 
+            INSERT INTO products(
+                name,
+                description,
+                category,
+                brand,
+                price,
+                stock_quantity,
+                available,
+                rating,
+                review_count,
+                sku,
+                manufacturer,
+                color,
+                warranty
+            )
+            VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)
             """;
-        Product savedProduct;
-        return savedProduct;
+            
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+
+        jdbcTemplate.update(connection -> {
+
+            PreparedStatement statement = connection.prepareStatement(
+                sql,
+                new String[] { "id" }
+            );
+
+            statement.setString(1, product.getName());
+            statement.setString(2, product.getDescription());
+            statement.setString(3, product.getCategory());
+            statement.setString(4, product.getBrand());
+
+            statement.setObject(5, product.getPrice());
+            statement.setObject(6, product.getStockQuantity());
+
+            statement.setObject(7, product.getAvailable());
+
+            statement.setObject(8, product.getRating());
+            statement.setObject(9, product.getReviewCount());
+
+            statement.setString(10, product.getSku());
+            statement.setString(11, product.getManufacturer());
+            statement.setString(12, product.getColor());
+            statement.setString(13, product.getWarranty());
+
+            return statement;
+
+        }, keyHolder);
+
+        Number generatedId = keyHolder.getKey();
+
+        if (generatedId != null) {
+            product.setId(generatedId.intValue());
+        }
+
+        return product;
     }
     // --------------------------------------------
     // creating a list of products

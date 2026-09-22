@@ -42,10 +42,10 @@ public class EcomControler {
     }
 
     // Create List of product
-    @PostMapping ("/product/bulk")
-    public String createProduct(@RequestBody List<Product> productList){
-        return service.createProduct(productList);
-    }
+    // @PostMapping ("/product/bulk")
+    // public String createProduct(@RequestBody List<Product> productList){
+    //     return service.createProduct(productList);
+    // }
 
     // Get all Product
     @GetMapping(value = "/product")
