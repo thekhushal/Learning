@@ -14,12 +14,12 @@ public class ProductResponse {
     private Integer id;
 
     private String name;
+    private String description;
+    private String color;
     private String category;
     private String brand;
 
     private Integer price;
     private Boolean available;
-
-    private String color;
     private String warranty;
 }

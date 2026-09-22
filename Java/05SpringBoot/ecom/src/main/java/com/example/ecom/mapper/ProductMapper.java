@@ -13,6 +13,7 @@ import com.example.ecom.dto.UpdateProductRequest;
 
 @Component 
 public class ProductMapper {
+    // To Product
     public Product toProduct(CreateProductRequest request){
         Product product = new Product();
 
@@ -64,19 +65,23 @@ public class ProductMapper {
         return product;
     }
 
+    // To Response
     public ProductResponse toResponse(Product product){
         ProductResponse response = new ProductResponse();
+
         response.setId(product.getId());
         response.setName(product.getName());
+        response.setDescription(product.getDescription());
+        response.setColor(product.getColor());
         response.setCategory(product.getCategory());
         response.setBrand(product.getBrand());
         response.setPrice(product.getPrice());
         response.setAvailable(product.getAvailable());
-        response.setColor(product.getColor());
         response.setWarranty(product.getWarranty());
         return response;
     }
 
+    // to List<of Resopnses>
     public List<ProductResponse> productsToResponse(List<Product> products){
         List<ProductResponse> response = new ArrayList<>();
 
@@ -86,4 +91,5 @@ public class ProductMapper {
 
         return response;
     }
+
 }
