@@ -71,13 +71,12 @@ public class EcomService {
     }
 
     // Update Data By id
-    public ProductResponse updateProduct(int id, UpdateProductRequest request){
+    public int updateProduct(int id, UpdateProductRequest request){
 
         Product productRequest = mapper.UPRtoProduct(request);
-        Product product = repository.updateProduct(id, productRequest);
+        int rowsAffected = repository.updateProduct(id, productRequest);
 
-        ProductResponse response = mapper.toResponse(product);
-        return response;
+        return rowsAffected;
     }
 
     // Patch Data By id

@@ -30,6 +30,7 @@ public class EcomControler {
         this.service = service;
     }
 
+// POST
     // Create 1 Product
     @PostMapping("/product")
     public ProductResponse createProduct
@@ -41,12 +42,7 @@ public class EcomControler {
         return service.createProduct(request);
     }
 
-    // Create List of product
-    // @PostMapping ("/product/bulk")
-    // public String createProduct(@RequestBody List<Product> productList){
-    //     return service.createProduct(productList);
-    // }
-
+// GET
     // Get all Product
     @GetMapping(value = "/product")
     public List<ProductResponse> getProducts(){
@@ -65,6 +61,7 @@ public class EcomControler {
         return service.getProductByName(name);
     }
 
+    // RE-VISIT
     // Get product by Combination (name and id)
     @GetMapping (value = "/product/{id}", params = "name")
     public ProductResponse getProductByCombination(
@@ -74,15 +71,17 @@ public class EcomControler {
         return service.getProductByCombination(id, name);
     }
 
+// PUT
     // Update Data
     @PutMapping ("/product/{id}")
-    public ProductResponse updateProduct(
+    public int updateProduct(
         @PathVariable int id, 
         @RequestBody UpdateProductRequest data
     ){
         return service.updateProduct(id, data);
     }
-    
+
+// PATCH
     // Patch Data
     @PatchMapping ("/product/{id}")
     public ProductResponse patchProduct(
@@ -92,6 +91,7 @@ public class EcomControler {
         return service.patchProduct(id, request);
     }
 
+// DELETE
     // Delete Data
     @DeleteMapping ("/product/{id}")
     public String deleteProduct(@PathVariable int id ){
