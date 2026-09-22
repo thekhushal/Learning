@@ -221,7 +221,14 @@ public class EcomRepository {
         );
     }
     
-    
+    // Delete Product
+    public int deleteProduct(int id){
+        String sql = """
+            DELETE FROM products WHERE id = ?
+        """;
+
+        return jdbcTemplate.update(sql, id);
+    }
     // --------------------------------------------
     // creating a list of products
     List<Product> products = new ArrayList<>();
@@ -271,16 +278,5 @@ public class EcomRepository {
             }
         }
         return null;
-    }
-
-    // Delete Product
-    public String deleteProduct(int id){
-
-        for (int i = 0; i<products.size(); i++){
-            if (products.get(i).getId() == id){
-                products.remove(i);
-            }
-        }
-        return "Deleted product sucessfully";
     }
 }

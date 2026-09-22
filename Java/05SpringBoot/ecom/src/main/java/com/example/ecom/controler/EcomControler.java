@@ -94,7 +94,7 @@ public class EcomControler {
 // DELETE
     // Delete Data
     @DeleteMapping ("/product/{id}")
-    public String deleteProduct(@PathVariable int id ){
+    public int deleteProduct(@PathVariable int id ){
         return service.deleteProduct(id);
     }
 }

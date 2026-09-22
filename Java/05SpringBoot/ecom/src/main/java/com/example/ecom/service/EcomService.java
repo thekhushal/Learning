@@ -25,6 +25,7 @@ public class EcomService {
         this.mapper = mapper;
     }
 
+// POST
     // Create Single Product
     public ProductResponse createProduct(CreateProductRequest request){
 
@@ -33,14 +34,7 @@ public class EcomService {
         return mapper.toResponse(savedProduct);
     }
 
-    // Post Multiple Products
-    // public String createProduct(List<Product> productList){
-    //     for (Product product: productList){
-    //         repository.saveProduct(product);
-    //     }
-    //     return "Products saved sucessfully";
-    // }
-
+// GET
     // Get all Products
     public List<ProductResponse> getProducts(){
         List<Product> products = repository.getProducts();
@@ -70,6 +64,7 @@ public class EcomService {
         return response;
     }
 
+// PUT
     // Update Data By id
     public int updateProduct(int id, UpdateProductRequest request){
 
@@ -88,8 +83,9 @@ public class EcomService {
         return response;
     }
 
+// DELETE
     // Delete Data
-    public String deleteProduct(int id){
+    public int deleteProduct(int id){
         return repository.deleteProduct(id);
     }
 }
