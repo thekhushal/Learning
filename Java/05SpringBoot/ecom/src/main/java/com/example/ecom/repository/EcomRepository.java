@@ -114,6 +114,7 @@ public class EcomRepository {
         return products;
     }
 
+    // Get Products By Combination of two fields
 
 // Post Queries ON DB:
 
@@ -220,7 +221,78 @@ public class EcomRepository {
             id
         );
     }
-    
+
+// PATCH Queries on DB: 
+    // Patch data on id
+    public Product patchProduct(int id, Product productRequest){
+        StringBuilder sql = new StringBuilder("UPDATE products SET ");
+        List<Object> params = new ArrayList<>();
+
+        if (productRequest.getName() != null){
+            sql.append("name = ?, ");
+            params.add(productRequest.getName());
+        }
+        if (productRequest.getDescription() != null){
+            sql.append("description = ?, ");
+            params.add(productRequest.getDescription());
+        }
+        if (productRequest.getCategory() != null){
+            sql.append("category = ?, ");
+            params.add(productRequest.getCategory());
+        }
+        if (productRequest.getBrand() != null){
+            sql.append("brand = ?, ");
+            params.add(productRequest.getBrand());
+        }
+        if (productRequest.getPrice() != null){
+            sql.append("price = ?, ");
+            params.add(productRequest.getPrice());
+        }
+        if (productRequest.getStockQuantity() != null){
+            sql.append("stock_quantity = ?, ");
+            params.add(productRequest.getStockQuantity());
+        }
+        if (productRequest.getAvailable() != null){
+            sql.append("available = ?, ");
+            params.add(productRequest.getAvailable());
+        }
+        if (productRequest.getRating() != null){
+            sql.append("rating = ?, ");
+            params.add(productRequest.getRating());
+        }
+        if (productRequest.getReviewCount() != null){
+            sql.append("review_count = ?, ");
+            params.add(productRequest.getReviewCount());
+        }
+        if (productRequest.getSku() != null){
+            sql.append("sku = ?, ");
+            params.add(productRequest.getSku());
+        }
+        if (productRequest.getManufacturer() != null){
+            sql.append("manufacturer = ?, "); 
+            params.add(productRequest.getManufacturer());
+        }
+        if (productRequest.getColor() != null){
+            sql.append("color = ?, ");
+            params.add(productRequest.getColor());
+        }
+        if (productRequest.getWarranty() != null){
+            sql.append("warranty = ?, ");
+            params.add(productRequest.getWarranty());
+        }
+
+        sql.setLength(sql.length() - 2); // Remove the last comma and space
+
+        sql.append(" WHERE id = ?");
+        params.add(id);
+        
+        jdbcTemplate.update(sql.toString(), params.toArray());
+
+        return findById(id);
+
+    }
+
+// DELETE Queries on DB:
     // Delete Product
     public int deleteProduct(int id){
         String sql = """
@@ -229,54 +301,5 @@ public class EcomRepository {
 
         return jdbcTemplate.update(sql, id);
     }
-    // --------------------------------------------
-    // creating a list of products
-    List<Product> products = new ArrayList<>();
-    int nextid = 1;
 
-    // Get Products By Combination of two fields
-
-    // Patch product
-    public Product patchProduct(int id, Product request){
-        for (Product product : products){
-            if (product.getId() == id){
-                // set operations
-                if (request.getName() != null){
-                    product.setName(request.getName());
-                }
-                if (request.getDescription() != null){
-                    product.setDescription(request.getDescription());
-                }
-                if (request.getCategory() != null){
-                    product.setCategory(request.getCategory());
-                }
-                if (request.getBrand() != null){
-                    product.setBrand(request.getBrand());
-                }
-                if (request.getPrice() != null){
-                    product.setPrice(request.getPrice());
-                }
-                if (request.getStockQuantity() != null){
-                    product.setStockQuantity(request.getStockQuantity());
-                }
-                if (request.getAvailable() != null){
-                    product.setAvailable(request.getAvailable());
-                }
-                if (request.getSku() != null){
-                    product.setSku(request.getSku());
-                }
-                if (request.getManufacturer() != null){
-                    product.setManufacturer(request.getManufacturer());
-                }
-                if (request.getColor() != null){
-                    product.setColor(request.getColor());
-                }
-                if (request.getWarranty() != null){
-                    product.setWarranty(request.getWarranty());
-                }
-                return product;
-            }
-        }
-        return null;
-    }
 }

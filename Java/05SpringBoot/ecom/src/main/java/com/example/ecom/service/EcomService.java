@@ -74,6 +74,7 @@ public class EcomService {
         return rowsAffected;
     }
 
+// PATCH
     // Patch Data By id
     public ProductResponse patchProduct(int id, PatchProductRequest request){
         Product productRequest = mapper.PPRtoProduct(request);
