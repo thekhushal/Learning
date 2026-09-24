@@ -1,0 +1,500 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}</style><style>:root{color-scheme:light dark;--md-bg:#fff;--md-text:rgba(0,0,0,.8);--md-muted:rgba(0,0,0,.6);--md-fill:rgba(0,0,0,.04);--md-fill-strong:rgba(0,0,0,.06);--md-rule:rgba(0,0,0,.1);--md-rule-strong:rgba(0,0,0,.16);--md-link:hsl(210 100% 45%)}@media (prefers-color-scheme:dark){:root:where(:not([data-theme="light"])){--md-bg:#0d0d0d;--md-text:rgba(255,255,255,.85);--md-muted:rgba(255,255,255,.6);--md-fill:rgba(255,255,255,.06);--md-fill-strong:rgba(255,255,255,.09);--md-rule:rgba(255,255,255,.14);--md-rule-strong:rgba(255,255,255,.22);--md-link:hsl(210 100% 72%)}}:root[data-theme="dark"]{color-scheme:dark;--md-bg:#0d0d0d;--md-text:rgba(255,255,255,.85);--md-muted:rgba(255,255,255,.6);--md-fill:rgba(255,255,255,.06);--md-fill-strong:rgba(255,255,255,.09);--md-rule:rgba(255,255,255,.14);--md-rule-strong:rgba(255,255,255,.22);--md-link:hsl(210 100% 72%)}:root[data-theme="light"]{color-scheme:light}@media print{:root,:root[data-theme="dark"]{color-scheme:light;--md-bg:#fff;--md-text:rgba(0,0,0,.8);--md-muted:rgba(0,0,0,.6);--md-fill:rgba(0,0,0,.04);--md-fill-strong:rgba(0,0,0,.06);--md-rule:rgba(0,0,0,.1);--md-rule-strong:rgba(0,0,0,.16);--md-link:hsl(210 100% 45%)}}body{background:var(--md-bg);color:var(--md-text);max-width:720px;margin:0 auto;padding:32px;display:flex;flex-direction:column;gap:10px;font:14px/1.55 -apple-system,BlinkMacSystemFont,'SF Pro','Segoe UI',sans-serif;overflow-wrap:break-word}body>:first-child{margin-top:0}h1,h2,h3,h4,h5,h6{margin:6px 0 0;line-height:1.25;font-weight:600;text-wrap:balance}h1{font-size:1.35em}h2{font-size:1.15em;color:var(--md-muted)}h3,h4,h5,h6{font-size:1em}p,ul,ol,blockquote,table,pre,hr{margin:0}strong{font-weight:600}a{color:var(--md-link);text-decoration:none}a:hover{text-decoration:underline}ul,ol{display:flex;flex-direction:column;gap:6px;padding-left:22px}ul{list-style:disc}ol{list-style:decimal}:is(li,td,th)>*+:is(p,ul,ol,blockquote){margin-top:6px}blockquote{display:flex;flex-direction:column;gap:10px;border-left:2px solid var(--md-rule);padding-left:10px;color:var(--md-muted)}:not(pre)>code{background:var(--md-fill);padding:1px 3px;border-radius:4px;font:.92em 'SF Mono',ui-monospace,Menlo,Consolas,monospace}a>code{background:none;color:inherit}pre{background:var(--md-fill);padding:10px 12px;border-radius:6px;overflow-x:auto;font:12px/1.5 'SF Mono',ui-monospace,Menlo,Consolas,monospace;margin-block:4px}pre code{background:none;padding:0;font:inherit}table{width:100%;border-collapse:separate;border-spacing:2px;font:inherit}th,td{padding:6px 8px;border-radius:3px;text-align:left;vertical-align:top}th{background:var(--md-fill-strong);font-weight:600}td{background:var(--md-fill)}:is(th,td) :not(pre)>code{background:transparent}hr{border:0;border-top:1px solid var(--md-rule-strong);margin-block:10px}img{max-width:100%;height:auto;border-radius:4px}</style>
+</head><body>
+<h1>E-Commerce Project — Database Schema</h1>
+<p>A schema sized for what you're building toward (Spring Security → JPA → Cart/Orders → Payments → Reviews), not just what you need today. Add tables in the phases below as you reach that topic — don't build it all on day one.</p>
+<hr>
+<h2>Phase 1 — Auth (Spring Security, now)</h2>
+<h3><code>users</code></h3>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>BIGINT, PK, auto-increment</td>
+<td></td>
+</tr>
+<tr>
+<td>username</td>
+<td>VARCHAR(50), UNIQUE, NOT NULL</td>
+<td></td>
+</tr>
+<tr>
+<td>email</td>
+<td>VARCHAR(100), UNIQUE, NOT NULL</td>
+<td></td>
+</tr>
+<tr>
+<td>password</td>
+<td>VARCHAR(255), NOT NULL</td>
+<td>store BCrypt hash, never plaintext</td>
+</tr>
+<tr>
+<td>enabled</td>
+<td>BOOLEAN, DEFAULT true</td>
+<td>for account activation/deactivation</td>
+</tr>
+<tr>
+<td>created_at</td>
+<td>TIMESTAMP, DEFAULT now()</td>
+<td></td>
+</tr>
+<tr>
+<td>updated_at</td>
+<td>TIMESTAMP</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3><code>roles</code></h3>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>BIGINT, PK</td>
+<td></td>
+</tr>
+<tr>
+<td>name</td>
+<td>VARCHAR(30), UNIQUE</td>
+<td>e.g. <code>ROLE_ADMIN</code>, <code>ROLE_CUSTOMER</code></td>
+</tr>
+</tbody>
+</table>
+<h3><code>user_roles</code> (join table — many-to-many)</h3>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>user_id</td>
+<td>BIGINT, FK → users.id</td>
+<td></td>
+</tr>
+<tr>
+<td>role_id</td>
+<td>BIGINT, FK → roles.id</td>
+<td>composite PK (user_id, role_id)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Why split roles out</strong> instead of a <code>role</code> column on <code>users</code>: a user can hold multiple roles, and it's the standard shape Spring Security's <code>UserDetailsService</code> expects — you'll wire this straight into <code>GrantedAuthority</code>.</p>
+<hr>
+<h2>Phase 2 — Catalog (once you touch JPA/relationships)</h2>
+<h3><code>categories</code></h3>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>BIGINT, PK</td>
+<td></td>
+</tr>
+<tr>
+<td>name</td>
+<td>VARCHAR(100), NOT NULL</td>
+<td></td>
+</tr>
+<tr>
+<td>description</td>
+<td>VARCHAR(500)</td>
+<td></td>
+</tr>
+<tr>
+<td>parent_category_id</td>
+<td>BIGINT, FK → categories.id, NULLABLE</td>
+<td>self-reference, for subcategories (e.g. Electronics → Laptops)</td>
+</tr>
+</tbody>
+</table>
+<h3><code>products</code> (extend your existing table)</h3>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>BIGINT, PK</td>
+<td>already have this</td>
+</tr>
+<tr>
+<td>name</td>
+<td>VARCHAR(150), NOT NULL</td>
+<td></td>
+</tr>
+<tr>
+<td>description</td>
+<td>TEXT</td>
+<td></td>
+</tr>
+<tr>
+<td>price</td>
+<td>DECIMAL(10,2), NOT NULL</td>
+<td>never use FLOAT/DOUBLE for money</td>
+</tr>
+<tr>
+<td>stock_quantity</td>
+<td>INT, NOT NULL, DEFAULT 0</td>
+<td></td>
+</tr>
+<tr>
+<td>sku</td>
+<td>VARCHAR(50), UNIQUE</td>
+<td>stock-keeping unit</td>
+</tr>
+<tr>
+<td>category_id</td>
+<td>BIGINT, FK → categories.id</td>
+<td></td>
+</tr>
+<tr>
+<td>active</td>
+<td>BOOLEAN, DEFAULT true</td>
+<td>soft-disable instead of hard delete</td>
+</tr>
+<tr>
+<td>created_at</td>
+<td>TIMESTAMP</td>
+<td></td>
+</tr>
+<tr>
+<td>updated_at</td>
+<td>TIMESTAMP</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3><code>product_images</code></h3>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>BIGINT, PK</td>
+<td></td>
+</tr>
+<tr>
+<td>product_id</td>
+<td>BIGINT, FK → products.id</td>
+<td></td>
+</tr>
+<tr>
+<td>image_url</td>
+<td>VARCHAR(500)</td>
+<td></td>
+</tr>
+<tr>
+<td>is_primary</td>
+<td>BOOLEAN, DEFAULT false</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2>Phase 3 — Addresses &amp; Cart</h2>
+<h3><code>addresses</code></h3>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>BIGINT, PK</td>
+<td></td>
+</tr>
+<tr>
+<td>user_id</td>
+<td>BIGINT, FK → users.id</td>
+<td></td>
+</tr>
+<tr>
+<td>line1, line2</td>
+<td>VARCHAR(200)</td>
+<td></td>
+</tr>
+<tr>
+<td>city, state, country</td>
+<td>VARCHAR(100)</td>
+<td></td>
+</tr>
+<tr>
+<td>postal_code</td>
+<td>VARCHAR(20)</td>
+<td></td>
+</tr>
+<tr>
+<td>type</td>
+<td>VARCHAR(20)</td>
+<td><code>SHIPPING</code> / <code>BILLING</code></td>
+</tr>
+<tr>
+<td>is_default</td>
+<td>BOOLEAN</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3><code>carts</code></h3>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>BIGINT, PK</td>
+<td></td>
+</tr>
+<tr>
+<td>user_id</td>
+<td>BIGINT, FK → users.id, UNIQUE</td>
+<td>one active cart per user</td>
+</tr>
+<tr>
+<td>created_at</td>
+<td>TIMESTAMP</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3><code>cart_items</code></h3>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>BIGINT, PK</td>
+<td></td>
+</tr>
+<tr>
+<td>cart_id</td>
+<td>BIGINT, FK → carts.id</td>
+<td></td>
+</tr>
+<tr>
+<td>product_id</td>
+<td>BIGINT, FK → products.id</td>
+<td></td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>INT, NOT NULL</td>
+<td></td>
+</tr>
+<tr>
+<td>UNIQUE(cart_id, product_id)</td>
+<td></td>
+<td>prevents duplicate rows for the same product</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2>Phase 4 — Orders &amp; Payments</h2>
+<h3><code>orders</code></h3>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>BIGINT, PK</td>
+<td></td>
+</tr>
+<tr>
+<td>user_id</td>
+<td>BIGINT, FK → users.id</td>
+<td></td>
+</tr>
+<tr>
+<td>shipping_address_id</td>
+<td>BIGINT, FK → addresses.id</td>
+<td></td>
+</tr>
+<tr>
+<td>billing_address_id</td>
+<td>BIGINT, FK → addresses.id</td>
+<td></td>
+</tr>
+<tr>
+<td>status</td>
+<td>VARCHAR(20)</td>
+<td><code>PENDING</code>, <code>CONFIRMED</code>, <code>SHIPPED</code>, <code>DELIVERED</code>, <code>CANCELLED</code></td>
+</tr>
+<tr>
+<td>total_amount</td>
+<td>DECIMAL(10,2)</td>
+<td></td>
+</tr>
+<tr>
+<td>order_date</td>
+<td>TIMESTAMP</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3><code>order_items</code></h3>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>BIGINT, PK</td>
+<td></td>
+</tr>
+<tr>
+<td>order_id</td>
+<td>BIGINT, FK → orders.id</td>
+<td></td>
+</tr>
+<tr>
+<td>product_id</td>
+<td>BIGINT, FK → products.id</td>
+<td></td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>INT</td>
+<td></td>
+</tr>
+<tr>
+<td>price_at_purchase</td>
+<td>DECIMAL(10,2)</td>
+<td><strong>snapshot</strong> the price here — don't join live to <code>products.price</code>, since price changes later shouldn't rewrite history</td>
+</tr>
+</tbody>
+</table>
+<h3><code>payments</code></h3>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>BIGINT, PK</td>
+<td></td>
+</tr>
+<tr>
+<td>order_id</td>
+<td>BIGINT, FK → orders.id, UNIQUE</td>
+<td></td>
+</tr>
+<tr>
+<td>method</td>
+<td>VARCHAR(30)</td>
+<td><code>CARD</code>, <code>UPI</code>, <code>COD</code></td>
+</tr>
+<tr>
+<td>status</td>
+<td>VARCHAR(20)</td>
+<td><code>PENDING</code>, <code>SUCCESS</code>, <code>FAILED</code>, <code>REFUNDED</code></td>
+</tr>
+<tr>
+<td>transaction_id</td>
+<td>VARCHAR(100)</td>
+<td>from a mock/real payment gateway</td>
+</tr>
+<tr>
+<td>amount</td>
+<td>DECIMAL(10,2)</td>
+<td></td>
+</tr>
+<tr>
+<td>paid_at</td>
+<td>TIMESTAMP</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2>Phase 5 — Engagement (polish, later)</h2>
+<h3><code>reviews</code></h3>
+<p>| id, product_id (FK), user_id (FK), rating (1–5, INT), comment (TEXT), created_at |</p>
+<h3><code>wishlists</code> + <code>wishlist_items</code></h3>
+<p>Same shape as cart/cart_items, just without quantity.</p>
+<h3><code>coupons</code></h3>
+<p>| id, code (UNIQUE), discount_percent, valid_from, valid_to, usage_limit, times_used |</p>
+<hr>
+<h2>Design notes worth carrying forward</h2>
+<ul>
+<li><strong>Every table gets <code>created_at</code>/<code>updated_at</code>.</strong> Cheap now, invaluable later for debugging and for demoing &quot;audit trail&quot; awareness in interviews.</li>
+<li><strong>Soft delete over hard delete</strong> for <code>products</code> and <code>users</code> (<code>active</code>/<code>enabled</code> flags) — real e-commerce systems rarely hard-delete rows that other tables reference.</li>
+<li><strong>Money is always <code>DECIMAL</code>, never <code>FLOAT</code>/<code>DOUBLE</code>.</strong> This is a classic interview gotcha.</li>
+<li><strong>Snapshot data at transaction time</strong> (<code>order_items.price_at_purchase</code>) rather than always joining live — a recurring real-world pattern once you build orders.</li>
+<li><strong>Index foreign keys</strong> (<code>product_id</code>, <code>user_id</code>, <code>order_id</code> everywhere) once the data grows past toy size — good to mention even now.</li>
+<li>Map tables to Java concepts as you go: <code>users</code>/<code>roles</code> → Spring Security; <code>categories</code> self-reference → JPA <code>@ManyToOne</code> on itself; <code>cart_items</code>/<code>order_items</code> → <code>@OneToMany</code>; <code>payments</code> → a natural place to later plug in a Strategy pattern per payment method.</li>
+</ul>
+<h2>Suggested build order</h2>
+<ol>
+<li><code>users</code>, <code>roles</code>, <code>user_roles</code> — Spring Security</li>
+<li><code>categories</code>, extend <code>products</code>, <code>product_images</code> — first JPA relationships</li>
+<li><code>addresses</code>, <code>carts</code>, <code>cart_items</code> — more relationships, DTOs</li>
+<li><code>orders</code>, <code>order_items</code>, <code>payments</code> — transactions, <code>@Transactional</code></li>
+<li><code>reviews</code>, <code>wishlists</code>, <code>coupons</code> — polish for the portfolio version</li>
+</ol>
+
+</body></html>
