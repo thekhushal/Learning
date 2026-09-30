@@ -661,3 +661,43 @@ Then,
     403
     → authorization problem
     ```
+
+## 17. The Complete Picture so far:
+
+```text
+
+                HTTP Request
+                    │
+                    ↓
+        ┌───────────────────────┐
+        │   Servlet Container   │
+        └──────────────────────┘
+                    │
+                    ↓
+        ┌───────────────────────┐
+        │ Spring Security       │
+        │ Filter Chain          │
+        │                       │
+        │ Authentication        │
+        │        ↓              │
+        │ SecurityContext       │
+        │        ↓              │
+        │ Authorization         │
+        └───────────┬───────────┘
+                    │
+                Allowed?
+                /       \
+            YES         NO
+            ↓           ↓
+        Controller     401/403
+            │
+            ↓
+        Service
+            │
+            ↓
+        Repository
+            │
+            ↓
+        Database
+
+```
