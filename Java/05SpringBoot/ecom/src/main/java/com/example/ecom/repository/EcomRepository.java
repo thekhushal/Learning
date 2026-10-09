@@ -115,7 +115,21 @@ public class EcomRepository {
     }
 
     // Get Products By Combination of two fields
+    public Product getProductByCombination(int id, String name){
+        String sql = """
+                select * from Products
+                where id = ? & name = ?;
+                """;
 
+        Product product = jdbcTemplate.queryForObject(
+            sql,
+            productRowMapper,
+            id,
+            name
+        );
+
+        return product;
+    }
 // Post Queries ON DB:
 
     // Adding a product to DB
