@@ -2,6 +2,7 @@ package com.example.ecom.controler;
 
 import java.util.List;
 
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -19,6 +20,7 @@ import com.example.ecom.dto.ProductResponse;
 import com.example.ecom.dto.UpdateProductRequest;
 import com.example.ecom.service.EcomService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
 @RestController 
@@ -43,6 +45,12 @@ public class EcomControler {
     }
 
 // GET
+    // Get CSRF Token 
+    @GetMapping("/csrf-token")
+    public CsrfToken getrCsrfToken(HttpServletRequest request){
+        return (CsrfToken) request.getAttribute("_csrf");
+    }
+
     // Get all Product
     @GetMapping(value = "/product")
     public List<ProductResponse> getProducts(){
