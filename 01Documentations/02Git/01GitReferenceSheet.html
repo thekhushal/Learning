@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Git reference sheet</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+  --bg:#f2f4f7;--surface:#ffffff;--ink:#16202e;--muted:#5a6678;--line:#d9dfe7;
+  --work:#c2410c;--stage:#a16207;--local:#1d4ed8;--remote:#6d28d9;--undo:#be123c;--add:#15803d;
+  --code-bg:#eef1f6;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0f1621;--surface:#172131;--ink:#e6ebf3;--muted:#98a4b8;--line:#2a374b;
+  --work:#fb923c;--stage:#facc15;--local:#6ea8ff;--remote:#b69cff;--undo:#fb7185;--add:#4ade80;--code-bg:#0f1823;}}
+:root[data-theme="dark"]{
+  --bg:#0f1621;--surface:#172131;--ink:#e6ebf3;--muted:#98a4b8;--line:#2a374b;
+  --work:#fb923c;--stage:#facc15;--local:#6ea8ff;--remote:#b69cff;--undo:#fb7185;--add:#4ade80;--code-bg:#0f1823;}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:1120px;margin:0 auto;padding:32px 20px 64px}
+h1{font-size:clamp(2rem,5vw,3.2rem);line-height:1.05;margin:0 0 6px;font-weight:800;letter-spacing:-.02em}
+.sub{color:var(--muted);margin:0 0 22px;max-width:60ch}
+.search{width:100%;max-width:420px;padding:11px 14px;border:1.5px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);font:500 15px "IBM Plex Mono",ui-monospace,monospace}
+.search:focus-visible,.cmd:focus-visible{outline:3px solid var(--local);outline-offset:2px}
+.flow{margin:28px 0 36px;overflow-x:auto;background:var(--surface);border:1.5px solid var(--line);border-radius:10px;padding:14px}
+.flow svg{display:block;min-width:700px;width:100%;height:auto}
+.flow text{font-family:"Bricolage Grotesque",system-ui,sans-serif;fill:var(--ink)}
+.flow .mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px}
+.flow .lbl{font-weight:700;font-size:15px}
+.grid{columns:2 340px;column-gap:28px}
+section{break-inside:avoid;margin:0 0 28px;background:var(--surface);border:1.5px solid var(--line);border-left:7px solid var(--c);border-radius:4px 10px 10px 4px;padding:16px 18px 8px}
+section h2{margin:0 0 2px;font-size:1.25rem;font-weight:800;color:var(--c)}
+section p.when{margin:0 0 10px;color:var(--muted);font-size:.9rem}
+.row{display:grid;grid-template-columns:1fr;gap:2px;padding:9px 0;border-top:1px solid var(--line)}
+.cmd{all:unset;cursor:pointer;display:block;font:500 13.5px/1.45 "IBM Plex Mono",ui-monospace,monospace;background:var(--code-bg);padding:5px 9px;border-radius:5px;overflow-wrap:anywhere}
+.cmd:hover{background:var(--c);color:var(--surface)}
+.row span.d{font-size:.92rem;color:var(--muted);padding-left:2px}
+.row.danger .cmd{box-shadow:inset 3px 0 0 var(--undo)}
+.row.danger span.d::before{content:"Destroys work. ";color:var(--undo);font-weight:700}
+.top{display:flex;gap:8px;align-items:flex-start}
+.top .cmd{flex:1;min-width:0}
+.more{all:unset;cursor:pointer;flex:none;font:700 12.5px "Bricolage Grotesque",system-ui,sans-serif;color:var(--c);border:1.5px solid var(--c);border-radius:6px;padding:4px 10px;line-height:1.4}
+.more:hover,.more[aria-expanded="true"]{background:var(--c);color:var(--surface)}
+.more:focus-visible{outline:3px solid var(--local);outline-offset:2px}
+.explain{margin-top:6px;padding:10px 12px;background:var(--code-bg);border-radius:6px;font-size:.92rem}
+.explain[hidden]{display:none}
+.explain p{margin:0 0 6px}
+.explain p:last-child{margin:0}
+.explain .tip{color:var(--muted);border-left:3px solid var(--c);padding-left:9px}
+.hide{display:none}
+.empty{display:none;color:var(--muted);padding:20px 0}
+#toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:9px 16px;border-radius:8px;font:500 14px "IBM Plex Mono",monospace;opacity:0;pointer-events:none;transition:opacity .15s}
+#toast.on{opacity:1}
+.foot{color:var(--muted);font-size:.85rem;margin-top:8px}
+@media (prefers-reduced-motion:reduce){#toast{transition:none}}
+</style>
+</head>
+<body>
+<main>
+  <h1>Git reference sheet</h1>
+  <p class="sub">Click a command to copy it, or press Explain for what it does and when to use it. Placeholders in &lt;angle brackets&gt; are yours to fill in.</p>
+  <input id="q" class="search" type="search" placeholder="Filter: try “undo” or “branch”" aria-label="Filter commands" autocomplete="off">
+
+  <div class="flow" role="img" aria-label="Git workflow: working directory to staging area with git add, to local repo with git commit, to remote with git push. Reverse: restore --staged, reset, fetch and pull.">
+    <svg viewBox="0 0 900 230" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="currentColor"/></marker>
+      </defs>
+      <g stroke-width="2.5" fill="none">
+        <rect x="10" y="70" width="170" height="80" rx="8" style="stroke:var(--work);fill:var(--surface)"/>
+        <rect x="250" y="70" width="170" height="80" rx="8" style="stroke:var(--stage);fill:var(--surface)"/>
+        <rect x="490" y="70" width="170" height="80" rx="8" style="stroke:var(--local);fill:var(--surface)"/>
+        <rect x="730" y="70" width="160" height="80" rx="8" style="stroke:var(--remote);fill:var(--surface)"/>
+      </g>
+      <g class="lbl" text-anchor="middle">
+        <text x="95" y="105" style="fill:var(--work)">Working dir</text>
+        <text x="335" y="105" style="fill:var(--stage)">Staging area</text>
+        <text x="575" y="105" style="fill:var(--local)">Local repo</text>
+        <text x="810" y="105" style="fill:var(--remote)">Remote</text>
+      </g>
+      <g text-anchor="middle" style="font-size:13px;fill:var(--muted)">
+        <text x="95" y="128" style="fill:var(--muted)">files you edit</text>
+        <text x="335" y="128" style="fill:var(--muted)">next commit</text>
+        <text x="575" y="128" style="fill:var(--muted)">commit history</text>
+        <text x="810" y="128" style="fill:var(--muted)">origin</text>
+      </g>
+      <g stroke-width="2.5" fill="none" style="color:var(--ink);stroke:var(--ink)">
+        <path d="M184 95H246" marker-end="url(#a)"/>
+        <path d="M424 95H486" marker-end="url(#a)"/>
+        <path d="M664 95H726" marker-end="url(#a)"/>
+        <path d="M246 130H184" marker-end="url(#a)" style="stroke:var(--undo);color:var(--undo)"/>
+        <path d="M486 130H424" marker-end="url(#a)" style="stroke:var(--undo);color:var(--undo)"/>
+        <path d="M726 130H664" marker-end="url(#a)" style="stroke:var(--remote);color:var(--remote)"/>
+      </g>
+      <g class="mono" text-anchor="middle">
+        <text x="215" y="82">add</text>
+        <text x="455" y="82">commit</text>
+        <text x="695" y="82">push</text>
+        <text x="215" y="150" style="fill:var(--undo)">restore</text>
+        <text x="215" y="166" style="fill:var(--undo)">--staged</text>
+        <text x="455" y="150" style="fill:var(--undo)">reset</text>
+        <text x="695" y="150" style="fill:var(--remote)">fetch</text>
+        <text x="695" y="166" style="fill:var(--remote)">pull</text>
+      </g>
+      <text x="450" y="40" text-anchor="middle" class="lbl" style="font-size:14px;fill:var(--muted)">Changes move right to save them, left to take them back</text>
+      <path d="M95 190V200H810V190" fill="none" stroke-width="2" stroke-dasharray="5 5" style="stroke:var(--line)"/>
+      <text x="450" y="218" text-anchor="middle" class="mono" style="fill:var(--muted)">git clone brings the whole remote history down to your machine</text>
+    </svg>
+  </div>
+
+  <div class="grid" id="grid"></div>
+  <p class="empty" id="empty">No commands match that filter. Try a shorter word.</p>
+  <p class="foot">Commands marked with a red bar can lose uncommitted work or rewrite shared history.</p>
+</main>
+<div id="toast" role="status" aria-live="polite">Copied</div>
+
+<script>
+var DATA=[
+{t:"Set up",w:"Once per machine, then once per project.",c:"--work",r:[
+ ['git config --global user.name "Your Name"',"Set the name on your commits"],
+ ['git config --global user.email "you@example.com"',"Set the email on your commits"],
+ ["git config --global init.defaultBranch main","Name new branches main by default"],
+ ["git init","Turn the current folder into a repo"],
+ ["git clone <url>","Copy a remote repo to your machine"]]},
+{t:"Save changes",w:"The everyday loop: look, stage, commit.",c:"--stage",r:[
+ ["git status","See what changed and what is staged"],
+ ["git diff","Show unstaged changes"],
+ ["git diff --staged","Show what the next commit will contain"],
+ ["git add <file>","Stage one file"],
+ ["git add -p","Stage changes piece by piece"],
+ ["git add .","Stage everything in this folder"],
+ ['git commit -m "message"',"Commit what is staged"],
+ ["git commit --amend","Fix the last commit or its message"]]},
+{t:"Branches",w:"Work on something without touching main.",c:"--local",r:[
+ ["git branch","List local branches"],
+ ["git switch -c <name>","Create a branch and switch to it"],
+ ["git switch <name>","Switch to an existing branch"],
+ ["git merge <name>","Merge a branch into the current one"],
+ ["git rebase main","Replay your commits on top of main"],
+ ["git cherry-pick <hash>","Copy one commit onto this branch"],
+ ["git branch -d <name>","Delete a merged branch"]]},
+{t:"Remotes",w:"Share work and pull in other people's.",c:"--remote",r:[
+ ["git remote -v","List remotes and their URLs"],
+ ["git remote add origin <url>","Connect this repo to a remote"],
+ ["git fetch","Download new commits without merging"],
+ ["git pull --rebase","Fetch and replay your commits on top"],
+ ["git push -u origin <branch>","Push a new branch and track it"],
+ ["git push","Push the current branch"],
+ ["git push --force-with-lease","Force push, but only if nobody else pushed first","x"]]},
+{t:"Inspect history",w:"Find out what happened and who did it.",c:"--local",r:[
+ ["git log --oneline --graph --all","Compact picture of every branch"],
+ ["git log -p <file>","History of one file, with the changes"],
+ ['git log --author="name"',"Commits by one person"],
+ ["git show <hash>","Show one commit in full"],
+ ["git blame <file>","Who last changed each line"],
+ ["git reflog","Every place HEAD has been, a safety net for lost commits"]]},
+{t:"Undo",w:"Pick the gentlest option that works.",c:"--undo",r:[
+ ["git restore <file>","Discard unstaged edits to a file","x"],
+ ["git restore --staged <file>","Unstage a file, keep the edits"],
+ ["git reset --soft HEAD~1","Undo the last commit, keep changes staged"],
+ ["git reset --hard HEAD~1","Undo the last commit and throw the changes away","x"],
+ ["git revert <hash>","Add a new commit that cancels an old one"],
+ ["git clean -fd","Delete untracked files and folders","x"]]},
+{t:"Stash and tag",w:"Park work for later, or mark a release.",c:"--add",r:[
+ ["git stash","Shelve uncommitted changes"],
+ ["git stash list","See what is shelved"],
+ ["git stash pop","Bring back the latest stash"],
+ ["git tag v1.0","Tag the current commit"],
+ ['git tag -a v1.0 -m "Release 1.0"',"Tag with a message"],
+ ["git push --tags","Push all tags to the remote"]]}
+];
+var grid=document.getElementById('grid'),toast=document.getElementById('toast'),tt;
+DATA.forEach(function(s){
+  var el=document.createElement('section');el.style.setProperty('--c','var('+s.c+')');
+  var h='<h2>'+s.t+'</h2><p class="when">'+s.w+'</p>';
+  s.r.forEach(function(r){
+    var c=r[0].replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    h+='<div class="row'+(r[2]?' danger':'')+'" data-s="'+(r[0]+' '+r[1]+' '+s.t).toLowerCase().replace(/"/g,'')+'"><div class="top"><button class="cmd" type="button" data-c="'+r[0].replace(/"/g,'&quot;')+'">'+c+'</button><button class="more" type="button" aria-expanded="false">Explain</button></div><span class="d">'+r[1]+'</span><div class="explain" hidden></div></div>';
+  });
+  el.innerHTML=h;grid.appendChild(el);
+});
+var EXPLAIN={
+'git config --global user.name "Your Name"':"Stores the name Git attaches to every commit you make. --global saves it for your whole user account, so you only do this once per machine. | Leave out --global to set a different name for just one repo.",
+'git config --global user.email "you@example.com"':"Sets the email on your commits. Hosts like GitHub use it to link commits to your account, so use the address you registered with. | Check what is set with git config --global --list.",
+"git config --global init.defaultBranch main":"Makes every new repo you create start on a branch called main instead of master. | Only affects repos created after you run it; existing repos keep their branch names.",
+"git init":"Creates a hidden .git folder in the current directory, which is where Git stores all history. Nothing is tracked until you add and commit files. | Run it once at the root of a project, not inside subfolders.",
+"git clone <url>":"Downloads a full copy of a remote repository, including all history, and sets that remote up as origin. It creates a new folder named after the repo. | Add a folder name after the URL to pick a different folder, or --depth 1 for a quick shallow copy.",
+"git status":"Shows which files are modified, which are staged for the next commit, and which are untracked. It also says which branch you are on and whether you are ahead or behind the remote. | Run it often. It is the safest command and usually points to the next step.",
+"git diff":"Shows line-by-line changes in files you have edited but not yet staged. Lines starting with + were added and lines starting with - were removed. | It ignores new untracked files. Add a filename to see just one file.",
+"git diff --staged":"Shows the changes you have already staged, which is exactly what git commit will record. Use it as a last review before committing. | --cached is an older name for the same flag.",
+"git add <file>":"Moves the current version of a file into the staging area so it becomes part of the next commit. If you edit the file again afterwards, run git add again to include the new edits. | Works on folders too, for example git add src/.",
+"git add -p":"Walks through your changes one chunk at a time and asks whether to stage each. It lets you split a messy set of edits into several focused commits. | Answer y to stage, n to skip, s to split a chunk smaller, q to quit.",
+"git add .":"Stages every new, changed and deleted file under the current folder. It is quick, but it will also pick up files you did not mean to include. | Check git status first and keep build output and secrets in .gitignore.",
+'git commit -m "message"':"Saves everything in the staging area as a new commit with your message. Write the message as what the change does, like Fix login redirect, rather than what you did. | Without -m, Git opens your editor so you can write a longer message.",
+"git commit --amend":"Replaces the most recent commit with a new one, so you can fix the message or add forgotten files (stage them first). | Avoid it on commits you have already pushed, since it rewrites history others may have.",
+"git branch":"Lists your local branches and marks the one you are on with an asterisk. | Add -a to include remote branches, or -vv to see what each branch tracks.",
+"git switch -c <name>":"Creates a new branch from where you are now and moves you onto it in one step. Your uncommitted changes come along. | Branch from the right place: switch to main and pull before creating a feature branch.",
+"git switch <name>":"Moves you to another existing branch and updates your files to match it. Git refuses if uncommitted changes would be overwritten. | In that case commit or stash first. git switch - jumps back to the previous branch.",
+"git merge <name>":"Brings the commits from another branch into the branch you are on. Git makes a merge commit, or just moves the branch pointer forward when nothing has diverged. | If both sides changed the same lines you get a conflict: fix the files, git add them, then git commit.",
+"git rebase main":"Takes your branch commits and replays them on top of the latest main, giving a straight history with no merge commit. | Never rebase a branch other people are using, since it rewrites commit hashes.",
+"git cherry-pick <hash>":"Copies a single commit from anywhere in the repo onto your current branch as a new commit. Handy for taking one bugfix without merging a whole branch. | Find the hash with git log --oneline.",
+"git branch -d <name>":"Deletes a branch that has already been merged, and refuses if it has unmerged work. | Use -D to force-delete an unmerged branch, which can lose commits.",
+"git remote -v":"Lists the remotes this repo knows about with the URLs used for fetching and pushing. Usually you will see one called origin. | Useful to confirm you are pushing to the right place, especially when working with forks.",
+"git remote add origin <url>":"Registers a remote under the name origin. Needed when you start with git init locally and then create an empty repo on GitHub or GitLab. | Fix a wrong URL later with git remote set-url origin <url>.",
+"git fetch":"Downloads new commits and branches from the remote but does not change your files or current branch. A safe way to see what others have done. | Compare with git log HEAD..origin/main before deciding to merge.",
+"git pull --rebase":"Fetches the remote branch and replays your local commits on top of it, avoiding noisy merge commits. A plain git pull would merge instead. | If conflicts appear, fix them, git add the files, then run git rebase --continue.",
+"git push -u origin <branch>":"Uploads your branch to the remote and links the two, so later git push and git pull need no arguments. Use it the first time you push a branch. | -u is short for --set-upstream.",
+"git push":"Uploads your new commits on the current branch to its tracked remote branch. It is rejected if the remote has commits you do not have, so pull first. | Never push secrets. Removing them in a later commit does not erase them from history.",
+"git push --force-with-lease":"Overwrites the remote branch with yours, like --force, but only if nobody else has pushed since your last fetch. Needed after rebasing or amending a branch you already pushed. | Prefer it over --force, and avoid both on shared branches like main.",
+"git log --oneline --graph --all":"Prints one line per commit and draws branches as a text graph, across all branches. The quickest way to see how your history is shaped. | Add --decorate to label branch and tag names, or -20 to limit the output.",
+"git log -p <file>":"Shows every commit that touched the file along with the exact lines changed in each. Useful for finding when and why something changed. | Add --follow to keep tracking the file across renames.",
+'git log --author="name"':"Filters history to commits by one author. It matches part of the name or email, so a short fragment works. | Combine with --since=2.weeks.ago to narrow it down.",
+"git show <hash>":"Displays one commit: author, date, message and the full diff. With no hash it shows the latest commit. | Use git show <hash>:<file> to view a file as it was in that commit.",
+"git blame <file>":"Annotates each line of a file with the commit and author that last changed it. Good for tracking down the commit that introduced a bug. | Use -L 10,20 to blame only a range of lines.",
+"git reflog":"Lists every place HEAD has pointed, including commits that no branch refers to any more. If you reset or deleted a branch by mistake, the lost commit hash is usually here. | Recover with git switch -c rescue <hash>. Entries expire after about 90 days.",
+"git restore <file>":"Throws away uncommitted edits in a file and returns it to the last committed (or staged) version. There is no undo for this. | Run git diff <file> first to be sure you do not need those edits.",
+"git restore --staged <file>":"Takes a file out of the staging area while keeping your edits in the working directory. It is the opposite of git add. | Safe: nothing is lost, the file is just no longer in the next commit.",
+"git reset --soft HEAD~1":"Moves the branch back one commit but keeps all of that commit's changes staged, ready to commit again. Good for redoing a commit or combining several. | HEAD~2 goes back two commits. Only use it on commits you have not pushed.",
+"git reset --hard HEAD~1":"Moves the branch back one commit and deletes that commit's changes along with any uncommitted edits. | The commit can often be recovered through git reflog, but uncommitted work is gone for good.",
+"git revert <hash>":"Creates a new commit that applies the opposite of an earlier one. History stays intact, which makes it the safe way to undo something already pushed. | To revert a merge commit, add -m 1.",
+"git clean -fd":"Permanently deletes untracked files (-f) and untracked directories (-d). They were never committed, so they cannot be recovered. | Run git clean -nd first for a dry run that lists what would be removed.",
+"git stash":"Puts your uncommitted changes on a shelf and gives you a clean working directory, so you can switch branches quickly. | Add -u to include untracked files, and -m to add a label.",
+"git stash list":"Shows every stash with a name like stash@{0}, newest first, along with the branch and message. | Look inside one with git stash show -p stash@{0}.",
+"git stash pop":"Reapplies the newest stash to your working directory and removes it from the list. If it conflicts, the stash is kept so nothing is lost. | Use git stash apply to reapply but keep the stash.",
+"git tag v1.0":"Attaches a name to the current commit, usually to mark a release. This is a lightweight tag: just a label with no extra data. | Tag an older commit by adding its hash at the end.",
+'git tag -a v1.0 -m "Release 1.0"':"Creates an annotated tag that stores the tagger, date and a message. Preferred for releases because tools like GitHub display that information. | See the details with git show v1.0.",
+"git push --tags":"Pushes all your local tags to the remote. Tags are not sent by a normal git push. | To push just one tag: git push origin v1.0."
+};
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+function toggle(btn){
+  var row=btn.closest('.row'),p=row.querySelector('.explain'),open=p.hidden;
+  if(open&&!p.innerHTML){
+    var t=(EXPLAIN[row.querySelector('.cmd').getAttribute('data-c')]||'No extra notes for this one yet.').split(' | ');
+    p.innerHTML='<p>'+esc(t[0])+'</p>'+(t[1]?'<p class="tip">'+esc(t[1])+'</p>':'');
+  }
+  p.hidden=!open;btn.setAttribute('aria-expanded',open?'true':'false');btn.textContent=open?'Hide':'Explain';
+}
+function say(m){toast.textContent=m;toast.classList.add('on');clearTimeout(tt);tt=setTimeout(function(){toast.classList.remove('on')},1200)}
+grid.addEventListener('click',function(e){
+  var m=e.target.closest('.more');if(m){toggle(m);return}
+  var b=e.target.closest('.cmd');if(!b)return;
+  var t=b.getAttribute('data-c');
+  try{navigator.clipboard.writeText(t).then(function(){say('Copied')},function(){say('Select and copy manually')})}
+  catch(_){say('Select and copy manually')}
+});
+document.getElementById('q').addEventListener('input',function(e){
+  var v=e.target.value.trim().toLowerCase(),any=false;
+  grid.querySelectorAll('section').forEach(function(sec){
+    var n=0;
+    sec.querySelectorAll('.row').forEach(function(r){
+      var m=!v||r.getAttribute('data-s').indexOf(v)>-1;
+      r.classList.toggle('hide',!m);if(m)n++;
+    });
+    sec.classList.toggle('hide',n===0);if(n)any=true;
+  });
+  document.getElementById('empty').style.display=any?'none':'block';
+});
+</script>
+</body>
+</html>
