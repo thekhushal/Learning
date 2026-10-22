@@ -13,14 +13,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.ecom.Product;
+import com.example.ecom.User;
 import com.example.ecom.dto.CreateProductRequest;
 import com.example.ecom.dto.PatchProductRequest;
 import com.example.ecom.dto.ProductResponse;
 import com.example.ecom.dto.UpdateProductRequest;
 import com.example.ecom.service.EcomService;
+import com.example.ecom.service.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 @RestController 
@@ -28,8 +30,10 @@ public class EcomControler {
 
     // DI
     EcomService service;
-    public EcomControler(EcomService service){
+    UserService userService;
+    public EcomControler(EcomService service, UserService userService){
         this.service = service;
+        this.userService = userService;
     }
 
 // POST
@@ -51,6 +55,23 @@ public class EcomControler {
         return (CsrfToken) request.getAttribute("_csrf");
     }
 
+    // Get Session ID
+    @GetMapping ("/Session-ID")
+    public String getSessionID(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        return session.getId();
+    }
+    
+    // Get mapping for user
+    @GetMapping ("/users")
+    public List<User> getUsers(){
+        return userService.getUser();
+    }
+
+    @GetMapping(value = "/user", params = "username")
+    public User loadUserByUsername(@RequestParam String username){
+        return userService.loadByUsername(username);
+    }
     // Get all Product
     @GetMapping(value = "/product")
     public List<ProductResponse> getProducts(){
