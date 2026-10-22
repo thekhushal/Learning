@@ -50,4 +50,43 @@ public class UserRepository {
         // return "Haa haaa!!!!!";
         return jdbcTemplate.query(sql, UserRowMapper);
     }
+
+    public boolean existsByUsernameOrEmail(
+        String username, String email) 
+        {
+
+        String sql = """
+            SELECT EXISTS (
+                SELECT 1
+                FROM users
+                WHERE username = ? OR email = ?
+            )
+            """;
+
+        Boolean exists = jdbcTemplate.queryForObject(
+            sql, Boolean.class, username, email
+        );
+
+        return Boolean.TRUE.equals(exists);
+    }
+
+    public Long createUser(
+            String username,
+            String email,
+            String passwordHash) {
+
+        String sql = """
+            INSERT INTO users (username, email, password)
+            VALUES (?, ?, ?)
+            RETURNING id
+            """;
+
+        return jdbcTemplate.queryForObject(
+            sql,
+            Long.class,
+            username,
+            email,
+            passwordHash
+        );
+    }
 }
