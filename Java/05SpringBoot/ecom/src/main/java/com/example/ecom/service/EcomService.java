@@ -5,11 +5,11 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.example.ecom.Product;
 import com.example.ecom.dto.CreateProductRequest;
 import com.example.ecom.dto.PatchProductRequest;
 import com.example.ecom.dto.ProductResponse;
 import com.example.ecom.dto.UpdateProductRequest;
+import com.example.ecom.entity.Product;
 import com.example.ecom.mapper.ProductMapper;
 import com.example.ecom.repository.EcomRepository;
 
@@ -32,6 +32,15 @@ public class EcomService {
         Product product = mapper.toProduct(request);
         Product savedProduct = repository.createProduct(product);
         return mapper.toResponse(savedProduct);
+    }
+
+    // Create multiple products
+    public List<ProductResponse> CreateProductInBulk(List<CreateProductRequest> requests){
+        List<ProductResponse> response = new ArrayList<>();
+        for (CreateProductRequest request : requests){
+            response.add(createProduct(request));
+        }
+        return response;
     }
 
 // GET

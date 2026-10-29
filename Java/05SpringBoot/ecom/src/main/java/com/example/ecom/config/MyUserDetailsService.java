@@ -5,8 +5,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.example.ecom.User;
-import com.example.ecom.UserPrincipal;
+import com.example.ecom.entity.User;
+import com.example.ecom.entity.UserPrincipal;
 import com.example.ecom.repository.UserRepository;
 
 @Service 

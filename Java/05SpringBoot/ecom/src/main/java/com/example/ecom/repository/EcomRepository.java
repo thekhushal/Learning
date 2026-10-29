@@ -1,7 +1,6 @@
 package com.example.ecom.repository;
 
 import java.sql.PreparedStatement;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +10,7 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
-import com.example.ecom.Product;
+import com.example.ecom.entity.Product;
 
 @Repository 
 public class EcomRepository {

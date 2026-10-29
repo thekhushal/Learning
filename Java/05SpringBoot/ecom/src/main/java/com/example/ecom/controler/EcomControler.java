@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.ecom.User;
 import com.example.ecom.dto.CreateProductRequest;
 import com.example.ecom.dto.PatchProductRequest;
 import com.example.ecom.dto.ProductResponse;
 import com.example.ecom.dto.UpdateProductRequest;
+import com.example.ecom.entity.User;
 import com.example.ecom.service.EcomService;
 import com.example.ecom.service.UserService;
 
@@ -46,6 +46,15 @@ public class EcomControler {
     ){
                 
         return service.createProduct(request);
+    }
+
+    // Create Multiple Products
+    @PostMapping("/products/bulk")
+    public List<ProductResponse> CreateProductInBulk(
+        @Valid 
+        @RequestBody List<CreateProductRequest> requestList
+    ){
+        return service.CreateProductInBulk(requestList);
     }
 
 // GET

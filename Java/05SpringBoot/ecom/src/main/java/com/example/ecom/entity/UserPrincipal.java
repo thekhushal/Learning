@@ -1,4 +1,4 @@
-package com.example.ecom;
+package com.example.ecom.entity;
 
 import java.util.Collection;
 import java.util.Collections;
