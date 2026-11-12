@@ -1,5 +1,6 @@
 package com.example.ecom.config;
 
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -14,6 +15,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import com.example.ecom.security.JwtAuthenticationFilter;
 
 @Configuration 
 public class SecurityConfig {
@@ -21,7 +25,8 @@ public class SecurityConfig {
     @Bean 
     public SecurityFilterChain securityFilterChain(
         HttpSecurity http, 
-        AuthenticationProvider authenticationProvider
+        AuthenticationProvider authenticationProvider,
+        JwtAuthenticationFilter jwtAuthenticationFilter
     ) 
     throws Exception{
         
@@ -29,8 +34,8 @@ public class SecurityConfig {
             .csrf(customizer -> customizer.disable())
             .authenticationProvider(authenticationProvider) 
             .addFilterBefore(
-                JwtAuthenticationFilter,
-                UsernamePasswordAuthenticationToken.class
+                jwtAuthenticationFilter,
+                UsernamePasswordAuthenticationFilter.class
             )
             .authorizeHttpRequests(request -> request
                 .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
