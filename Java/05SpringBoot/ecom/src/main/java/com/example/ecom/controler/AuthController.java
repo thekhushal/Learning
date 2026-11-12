@@ -2,6 +2,8 @@ package com.example.ecom.controler;
 
 import com.example.ecom.dto.RegisterRequest;
 import com.example.ecom.dto.UserResponse;
+import com.example.ecom.dto.LoginRequest;
+import com.example.ecom.dto.LoginResponse;
 import com.example.ecom.service.AuthService;
 
 import jakarta.validation.Valid;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/auth")
 public class AuthController {
 
+    // Di
     private final AuthService authService;
 
     public AuthController(AuthService authService) {
@@ -26,5 +29,12 @@ public class AuthController {
             @Valid @RequestBody RegisterRequest request) {
 
         return authService.register(request);
+    }
+
+    @PostMapping("/login")
+    public LoginResponse login(
+            @Valid @RequestBody LoginRequest request) {
+
+        return authService.login(request);
     }
 }
