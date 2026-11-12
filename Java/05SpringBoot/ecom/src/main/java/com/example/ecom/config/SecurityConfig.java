@@ -27,7 +27,11 @@ public class SecurityConfig {
         
         return http
             .csrf(customizer -> customizer.disable())
-            .authenticationProvider(authenticationProvider)
+            .authenticationProvider(authenticationProvider) 
+            .addFilterBefore(
+                JwtAuthenticationFilter,
+                UsernamePasswordAuthenticationToken.class
+            )
             .authorizeHttpRequests(request -> request
                 .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
                 .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
@@ -62,5 +66,17 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder(12);
     }
 
+    @Bean
+    public FilterRegistrationBean<JwtAuthenticationFilter> jwtFilterRegistration(
+            JwtAuthenticationFilter jwtAuthenticationFilter) {
+
+        FilterRegistrationBean<JwtAuthenticationFilter> registration =
+                new FilterRegistrationBean<>();
+
+        registration.setFilter(jwtAuthenticationFilter);
+        registration.setEnabled(false);
+
+        return registration;
+    }
 
 }
