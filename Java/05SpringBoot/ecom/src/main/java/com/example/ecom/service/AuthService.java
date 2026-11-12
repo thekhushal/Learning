@@ -78,7 +78,7 @@ public class AuthService {
 
         String token = jwtService.generateToken(userDetails);
 
-        return LoginResponse(
+        return new LoginResponse(
             token,
             "Bearer",
             jwtService.getexpirationMs()
